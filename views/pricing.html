@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Pricing & Plans — GlowSlides AI Presentation Studio</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#4f46e5',
+              600: '#3730a3',
+              glow: '#3b82f6',
+              accent: '#60a5fa'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .radial-glow-hero {
+      background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%);
+    }
+    .radial-glow-subtle {
+      background: radial-gradient(circle at 15% 95%, rgba(59, 130, 246, 0.18) 0%, rgba(3, 7, 18, 0) 50%);
+    }
+    .cyber-grid {
+      background-size: 55px 55px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 90% 70% at 70% 60%, black 20%, transparent 80%);
+    }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Simple pricing for GlowSlides. Start free with unlimited AI slide generation, or join the waitlist for Pro at $8/month.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Pricing & Plans — GlowSlides AI Presentation Studio">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+  <!-- Ambient Backdrops -->
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 radial-glow-subtle z-0"></div>
+  <div class="pointer-events-none absolute inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Pricing Main Content -->
+  <main class="relative z-10 max-w-[1200px] mx-auto px-6 pt-16 pb-28">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-mono text-blue-300 mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        TRANSPARENT, DEVELOPER-FIRST PRICING
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">Simple pricing, boundless creativity</h1>
+      <p class="text-slate-400 text-base mt-3">Start generating world-class boardroom decks for free. Upgrade when you require custom enterprise brand kits and infinite slide synthesis.</p>
+    </div>
+
+    <!-- Pricing Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+      <!-- Free Plan Card -->
+      <div class="rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl p-8 sm:p-10 flex flex-col justify-between shadow-2xl relative">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-white">Free Starter</h2>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-white/[0.05] text-slate-300 border border-white/[0.08] uppercase">Active Plan</span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">Perfect for founders, operators, and students creating standalone pitch decks.</p>
+
+          <div class="flex items-baseline gap-1 mb-8">
+            <span class="text-5xl font-extrabold text-white tracking-tight">$0</span>
+            <span class="text-slate-400 text-sm">/ forever</span>
+          </div>
+
+          <div class="space-y-3.5 text-xs text-slate-200">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Unlimited Autonomous Slide Generations</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Nvidia NIM Free AI Model Integration</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Unlimited cloud project storage &amp; version history</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Full PowerPoint (.PPTX) Export</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Interactive HTML & Markdown Downloads</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/[0.06]">
+          <a href="/dashboard" class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white font-semibold text-xs border border-white/[0.1] transition">
+            Go to Free Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Pro Plan Card (with $8/month Pro Plan Coming Soon badge) -->
+      <div class="rounded-3xl bg-gradient-to-b from-[#0a1638] to-[#040919] border-2 border-blue-400/50 backdrop-blur-xl p-8 sm:p-10 flex flex-col justify-between shadow-[0_0_50px_rgba(37,99,235,0.25)] relative overflow-hidden">
+        <!-- Coming Soon Badge Bar -->
+        <div class="absolute -right-12 top-7 rotate-45 bg-gradient-to-r from-blue-600 to-indigo-500 py-1 px-14 text-[10px] font-mono font-bold text-white shadow-lg tracking-wider uppercase">
+          Coming Soon
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              Pro Studio
+              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono border border-blue-400/30">$8/month Pro Plan (Coming Soon)</span>
+            </h2>
+          </div>
+          <p class="text-slate-300 text-xs leading-relaxed mb-6">Designed for venture-backed executives, consulting firms, and power presenters.</p>
+
+          <div class="flex items-baseline gap-1 mb-3">
+            <span class="text-5xl font-extrabold text-white tracking-tight">$8</span>
+            <span class="text-slate-400 text-sm">/ month (Coming Soon)</span>
+          </div>
+
+          <!-- Pro Engine Badge: Claude Sonnet 5.5 -->
+          <div class="mb-8 flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/10 border border-amber-400/40 text-[11px] font-mono font-bold text-amber-200 tracking-wide">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              POWERED BY CLAUDE SONNET 5.5
+            </span>
+          </div>
+
+          <div class="space-y-3.5 text-xs text-slate-200">
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="font-semibold text-amber-200">Claude Sonnet 5.5 reasoning engine (Pro exclusive)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="font-semibold text-white">Everything in Free Starter</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Custom Enterprise Brand Kit &amp; Font Enforcers</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Priority Access to Llama-3.3-70B &amp; Mixtral NIMs</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Automated Financial Graph & Isometric Visual Generator</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Direct Link Sharing with Real-Time Telemetry</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/[0.08]">
+          <form onsubmit="handleWaitlistSubmit(event)" id="waitlistForm" class="space-y-3">
+            <div class="flex items-center gap-2">
+              <input id="waitlistEmail" type="email" required placeholder="Enter your email address..." class="flex-1 rounded-xl bg-[#02050e] border border-white/[0.15] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white placeholder-slate-500 text-xs p-3 font-sans transition">
+              <button type="submit" id="waitlistBtn" class="shrink-0 px-5 py-3 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition">
+                Join Waitlist
+              </button>
+            </div>
+            <div id="waitlistMessage" class="text-[11px] font-mono text-blue-300 hidden"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Strip -->
+    <div class="mt-20 max-w-3xl mx-auto border-t border-white/[0.08] pt-12">
+      <h3 class="text-xl font-bold text-white mb-6 text-center">Frequently Asked Questions</h3>
+      <div class="space-y-4">
+        <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <h4 class="text-sm font-bold text-white mb-1">Which AI engine powers my presentations?</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">The Free Starter plan runs on NVIDIA NIM endpoints (Llama 3.1 70B Instruct, Llama 3.3 70B, and Mixtral 8x7B) to autonomously craft slide structure, bullet arguments, and speaker notes. The <span class="text-amber-200 font-semibold">$8/month Pro Plan (Coming Soon)</span> upgrades the synthesis engine to <span class="text-amber-200 font-semibold">Claude Sonnet 5.5</span> for deeper reasoning, sharper narrative arcs, and more nuanced financial storytelling.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-amber-500/[0.04] border border-amber-400/20">
+          <h4 class="text-sm font-bold text-amber-200 mb-1">What is Claude Sonnet 5.5 and why does Pro use it?</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Claude Sonnet 5.5 is the frontier reasoning model powering the Pro Plan. It delivers materially better long-context coherence across full decks, stronger quantitative analysis for board metrics, and more precise adherence to your corporate brand voice than open-weights models alone.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <h4 class="text-sm font-bold text-white mb-1">Can I export directly to Microsoft PowerPoint?</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Yes! GlowSlides includes native PPTX compilation. You can download real, fully editable PowerPoint (.pptx) decks, standalone interactive HTML files, or Markdown outlines with a single click.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <h4 class="text-sm font-bold text-white mb-1">Where is my data stored, and who can see it?</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Your decks live in your private, encrypted workspace and are only visible to you. Nothing you generate is ever used to train AI models, and you can permanently delete any presentation at any time.</p>
+        </div>
+      </div>
+    </div>
+  </main>  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <script>
+    async function handleWaitlistSubmit(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('waitlistEmail');
+      const btn = document.getElementById('waitlistBtn');
+      const msg = document.getElementById('waitlistMessage');
+      const email = emailInput.value.trim();
+
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, plan: 'pro-8-monthly' })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          msg.textContent = '✓ ' + data.message;
+          msg.className = 'text-[11px] font-mono text-emerald-400 block mt-2';
+          btn.textContent = 'Joined!';
+          btn.className = 'shrink-0 px-5 py-3 rounded-xl bg-emerald-600 text-white font-semibold text-xs border border-emerald-400/40 cursor-default';
+          emailInput.disabled = true;
+        } else {
+          throw new Error(data.error || 'Failed to join waitlist');
+        }
+      } catch (err) {
+        msg.textContent = '✗ ' + err.message;
+        msg.className = 'text-[11px] font-mono text-rose-400 block mt-2';
+        btn.disabled = false;
+        btn.textContent = 'Join Waitlist';
+      }
+    }
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Templates Library — GlowSlides AI</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#4f46e5', 600: '#3730a3', glow: '#3b82f6', accent: '#60a5fa' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    .radial-glow-hero { background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%); }
+    .cyber-grid { background-size: 55px 55px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px); }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Start from a proven presentation blueprint: board reviews, investor pitch decks, product keynotes, sales decks, and more.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Templates Library — GlowSlides AI">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-6 py-12 flex-1">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-mono text-blue-300 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        CURATED BY BOARDROOM DESIGNERS & VENTURE PARTNERS
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">Boardroom-Grade Presentation Templates</h1>
+      <p class="text-slate-400 text-sm sm:text-base mt-3">Select any proven blueprint to preload into our autonomous Nvidia AI synthesizer. Fully customizable in 16:9 widescreen.</p>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+      <button onclick="filterTemplates('all')" class="tmpl-chip active px-4 py-2.5 min-h-[44px] rounded-full text-xs font-semibold bg-blue-600 text-white border border-blue-400/40">All Templates (8)</button>
+      <button onclick="filterTemplates('executive')" class="tmpl-chip px-4 py-2.5 min-h-[44px] rounded-full text-xs font-medium bg-white/[0.03] text-slate-300 hover:text-white border border-white/[0.08]">Executive & Board</button>
+      <button onclick="filterTemplates('fundraising')" class="tmpl-chip px-4 py-2.5 min-h-[44px] rounded-full text-xs font-medium bg-white/[0.03] text-slate-300 hover:text-white border border-white/[0.08]">Fundraising & Pitch</button>
+      <button onclick="filterTemplates('product')" class="tmpl-chip px-4 py-2.5 min-h-[44px] rounded-full text-xs font-medium bg-white/[0.03] text-slate-300 hover:text-white border border-white/[0.08]">Product & Engineering</button>
+      <button onclick="filterTemplates('sales')" class="tmpl-chip px-4 py-2.5 min-h-[44px] rounded-full text-xs font-medium bg-white/[0.03] text-slate-300 hover:text-white border border-white/[0.08]">Sales & GTM</button>
+    </div>
+
+    <!-- Templates Grid -->
+    <div id="templatesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Template 1 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="executive">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-blue-950 via-[#070e24] to-black border border-blue-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-blue-300"><span>12 SLIDES</span><span>Q3/Q4</span></div>
+            <div class="text-xs font-bold text-white">Quarterly Board Review & ARR Velocity</div>
+            <div class="w-full h-1 bg-blue-500/40 rounded-full"></div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-400/20 uppercase">Executive</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Quarterly Board Review</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">ARR trajectory, EBITDA margin expansion, headcount allocation, and governance milestones.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Cyber Dark</span>
+          <button onclick="useTemplate('Quarterly Board Review: Q3 ARR Velocity, Gross Margins, and 2026 Strategic Roadmap', 8, 'Board Members & Executives', 'professional', 'cyber-dark')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 2 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="fundraising">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-indigo-950 via-[#070e24] to-black border border-indigo-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-indigo-300"><span>10 SLIDES</span><span>SERIES A</span></div>
+            <div class="text-xs font-bold text-white">Seed to Series A Pitch Deck</div>
+            <div class="flex items-end gap-1 h-8"><div class="w-1/4 h-3 bg-indigo-500/40"></div><div class="w-1/4 h-5 bg-indigo-500/60"></div><div class="w-1/4 h-8 bg-blue-400"></div></div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-400/20 uppercase">Fundraising</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Series A Venture Pitch</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Problem definition, secret sauce, TAM/SAM sizing, unit economics, and use of proceeds.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Midnight Blue</span>
+          <button onclick="useTemplate('Series A Pitch: Autonomous Enterprise AI Stack and $40M TAM Opportunity', 10, 'Venture Capital Investors', 'persuasive', 'midnight-blue')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 3 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="product">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-emerald-950 via-[#070e24] to-black border border-emerald-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-emerald-300"><span>6 SLIDES</span><span>KEYNOTE</span></div>
+            <div class="text-xs font-bold text-white">Product Launch & Architecture Reveal</div>
+            <div class="w-2/3 h-1 bg-emerald-400/50 rounded-full"></div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-400/20 uppercase">Product</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Product Architecture Reveal</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">System microservices, latency telemetry benchmarks, developer APIs, and roadmap.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Emerald Tech</span>
+          <button onclick="useTemplate('Product Keynote: Zero-Latency Distributed Database Architecture Launch', 6, 'Engineering & Product Teams', 'technical', 'emerald-tech')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 4 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="sales">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-purple-950 via-[#070e24] to-black border border-purple-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-purple-300"><span>8 SLIDES</span><span>ENTERPRISE</span></div>
+            <div class="text-xs font-bold text-white">Enterprise ROI & Solution Pitch</div>
+            <div class="text-[10px] text-purple-300 font-mono">+420% VELOCITY</div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-400/20 uppercase">Sales</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Enterprise Sales Deck</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Quantified ROAS, security compliance certifications, case study proof points, and pilot timeline.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Purple Aurora</span>
+          <button onclick="useTemplate('Enterprise Platform Pitch: Reducing Operational Drag & Delivering 4.9x ROI', 8, 'Enterprise Customers & Prospects', 'persuasive', 'purple-aurora')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 5 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="executive">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-slate-900 to-black border border-white/10 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-slate-300"><span>6 SLIDES</span><span>ALL-HANDS</span></div>
+            <div class="text-xs font-bold text-white">Company All-Hands & Vision 2026</div>
+            <div class="text-[9px] text-slate-400 font-mono">MISSION • VALUES • OKRs</div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-500/10 text-slate-300 border border-slate-400/20 uppercase">Company</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Annual Company All-Hands</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Celebrating team wins, customer spotlights, upcoming quarterly OKRs, and executive vision.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Minimal Light</span>
+          <button onclick="useTemplate('Annual Company All-Hands: 2026 Strategic Vision, Core OKRs, and Culture', 6, 'Internal Cross-functional Teams', 'inspirational', 'minimal-light')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 6 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="product">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-cyan-950 via-[#070e24] to-black border border-cyan-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-cyan-300"><span>8 SLIDES</span><span>SPRINT</span></div>
+            <div class="text-xs font-bold text-white">Engineering Sprint & Post-Mortem</div>
+            <div class="text-[9px] text-cyan-400 font-mono">MTTR: &lt; 05 MIN</div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 uppercase">Engineering</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Incident Post-Mortem & Review</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Root cause analysis, telemetry timeline, automated mitigations, and preventive protocols.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Cyber Dark</span>
+          <button onclick="useTemplate('Engineering Incident Post-Mortem: Root Cause Analysis and Fault Tolerance Hardening', 6, 'Engineering & Product Teams', 'technical', 'cyber-dark')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 7 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="fundraising">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-rose-950 via-[#070e24] to-black border border-rose-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-rose-300"><span>4 SLIDES</span><span>ONE-PAGER</span></div>
+            <div class="text-xs font-bold text-white">YC-Style Teaser Deck</div>
+            <div class="w-1/2 h-1 bg-rose-400/50 rounded-full"></div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-400/20 uppercase">Fundraising</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Fast Investor Teaser</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Ultra-concise 4-slide deck for warm intro emails and initial investor outreach.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Midnight Blue</span>
+          <button onclick="useTemplate('Investor Teaser: High-Velocity AI Workflow Engine - $1.2M ARR in 6 Months', 4, 'Venture Capital Investors', 'persuasive', 'midnight-blue')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+
+      <!-- Template 8 -->
+      <div class="tmpl-card p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] hover:border-blue-500/50 backdrop-blur-xl flex flex-col justify-between shadow-xl transition group" data-category="sales">
+        <div>
+          <div class="h-36 rounded-xl bg-gradient-to-br from-amber-950 via-[#070e24] to-black border border-amber-500/20 p-3 flex flex-col justify-between mb-4 relative overflow-hidden group-hover:scale-[1.02] transition">
+            <div class="flex items-center justify-between text-[9px] font-mono text-amber-300"><span>8 SLIDES</span><span>GTM</span></div>
+            <div class="text-xs font-bold text-white">Go-To-Market & Partner Strategy</div>
+            <div class="text-[9px] text-amber-400 font-mono">CHANNEL SCALE</div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-400/20 uppercase">Strategy</span>
+          <h3 class="text-base font-bold text-white mt-2 group-hover:text-blue-300 transition">Partner Ecosystem Playbook</h3>
+          <p class="text-xs text-slate-400 mt-1 line-clamp-2">Channel incentives, co-marketing collateral, tier qualifications, and revenue shares.</p>
+        </div>
+        <div class="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">Theme: Emerald Tech</span>
+          <button onclick="useTemplate('Channel Partner & GTM Playbook: Scaling Tier-1 Global Cloud Integrators', 8, 'Enterprise Customers & Prospects', 'professional', 'emerald-tech')" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_10px_rgba(37,99,235,0.4)] transition">Use Blueprint</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <script>
+    function filterTemplates(cat) {
+      document.querySelectorAll('.tmpl-chip').forEach(c => {
+        c.className = 'tmpl-chip px-4 py-2.5 min-h-[44px] rounded-full text-xs font-medium bg-white/[0.03] text-slate-300 hover:text-white border border-white/[0.08]';
+      });
+      event.target.className = 'tmpl-chip active px-4 py-2.5 min-h-[44px] rounded-full text-xs font-semibold bg-blue-600 text-white border border-blue-400/40';
+
+      document.querySelectorAll('.tmpl-card').forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function useTemplate(topic, count, audience, tone, theme) {
+      // Store blueprint params in sessionStorage and route to dashboard
+      sessionStorage.setItem('sc_blueprint', JSON.stringify({ topic, count, audience, tone, theme }));
+      window.location.href = '/dashboard';
+    }
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

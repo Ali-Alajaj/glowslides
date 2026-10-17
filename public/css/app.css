@@ -1,0 +1,76 @@
+/* ==========================================================================
+   GlowSlides — shared mobile hardening
+   Loaded on every page, after Tailwind.
+   ========================================================================== */
+
+/* 1. iOS Safari auto-zooms the viewport when a form control smaller than 16px
+      receives focus, which leaves the page scrolled and zoomed. Every input on
+      this site uses 12-14px Tailwind text, so force 16px on phone widths. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 2. Keep content clear of notches and the iOS home indicator. */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* 3. Long unbreakable strings (URLs, share links, API keys) must not create
+      horizontal page scroll on narrow screens. */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* 4. Consistent tap feedback across touch browsers. */
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 5. Slim scrollbar for the horizontally scrollable studio ribbon. */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+
+/* 6. Never allow a stray wide child to scroll the whole page sideways. */
+html {
+  overflow-x: hidden;
+}
+
+/* 7. Touch targets. Footer/nav links are text-only and render ~16-18px tall,
+      which is well under the 44px minimum on a phone. Give them real height
+      only on touch-sized viewports so desktop stays visually compact. */
+@media (max-width: 1023px) {
+  nav a,
+  nav button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  [data-purpose="footer-menu"] {
+    row-gap: 0;
+    column-gap: 1.25rem;
+  }
+  [data-purpose="footer-menu"] a {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}

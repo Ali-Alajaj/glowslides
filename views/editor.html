@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Editor & Viewer — GlowSlides AI Presentation Studio</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#4f46e5',
+              600: '#3730a3',
+              glow: '#3b82f6',
+              accent: '#60a5fa'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .radial-glow-hero {
+      background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%);
+    }
+    .radial-glow-subtle {
+      background: radial-gradient(circle at 15% 95%, rgba(59, 130, 246, 0.18) 0%, rgba(3, 7, 18, 0) 50%);
+    }
+    .cyber-grid {
+      background-size: 55px 55px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+    /* Presentation Fullscreen Mode */
+    .present-mode-active {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 9999 !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      border-radius: 0 !important;
+      border: none !important;
+    }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Edit your generated presentation slide by slide, regenerate individual slides with AI, and export to PowerPoint, web, or Markdown.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Editor & Viewer — GlowSlides AI Presentation Studio">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+  <!-- Ambient Backdrops -->
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 radial-glow-subtle z-0"></div>
+  <div class="pointer-events-none absolute inset-0 cyber-grid z-0"></div>
+
+  <!-- Top Studio Navigation Bar -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- BEGIN: StudioWorkspaceRibbon -->
+<div class="relative z-40 w-full border-b border-white/[0.08] bg-black/40 backdrop-blur-md">
+  <div class="max-w-[1536px] mx-auto px-4 sm:px-6 py-2 min-h-[3.5rem] flex flex-wrap items-center justify-between gap-3 gap-y-2">
+    <div class="flex items-center gap-3 min-w-0">
+      <span class="hidden sm:flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-blue-400 shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Studio
+      </span>
+      <input id="deckTitleInput" type="text" value="Loading Presentation..." aria-label="Presentation title" class="bg-transparent border-0 border-b border-transparent hover:border-white/20 focus:border-blue-500 focus:ring-0 text-white font-bold text-sm tracking-tight px-0 py-2 min-h-[44px] max-w-[200px] sm:max-w-md truncate" onblur="handleTitleChange()">
+      <span id="saveStatusBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 shrink-0">Saved</span>
+      <div class="hidden xl:flex items-center gap-2 text-[10px] font-mono text-slate-400 truncate">
+        <span id="deckTopicText">Autonomous AI Synthesis</span>
+        <span>•</span>
+        <select id="deckThemeSelector" onchange="changeDeckTheme(this.value)" class="bg-white/[0.04] border border-white/[0.1] rounded px-1.5 py-0.5 text-[10px] font-mono text-blue-300 focus:ring-0">
+          <option value="cyber-dark">Cyber Dark</option>
+          <option value="midnight-blue">Midnight Blue</option>
+          <option value="emerald-tech">Emerald Tech</option>
+          <option value="purple-aurora">Purple Aurora</option>
+          <option value="minimal-light">Minimal Light</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <button onclick="addNewSlide()" class="px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+        <span class="hidden md:inline">Add Slide</span>
+      </button>
+
+      <button onclick="saveCurrentDeck()" class="px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+        <span class="hidden sm:inline">Save</span>
+      </button>
+
+      <button onclick="openShareModal()" class="px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+        <span class="hidden sm:inline">Share</span>
+      </button>
+
+      <div class="relative group">
+        <button class="px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          <span>Export</span>
+          <svg class="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <div class="absolute right-0 mt-1 w-48 rounded-xl bg-[#070e24] border border-blue-500/30 p-1.5 shadow-2xl backdrop-blur-xl hidden group-hover:block z-50">
+          <button onclick="downloadExport('pptx')" class="w-full text-left px-3 py-2.5 min-h-[44px] rounded-lg text-xs text-slate-200 hover:bg-blue-600/30 hover:text-white flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span>PowerPoint (.pptx)</button>
+          <button onclick="downloadExport('html')" class="w-full text-left px-3 py-2.5 min-h-[44px] rounded-lg text-xs text-slate-200 hover:bg-blue-600/30 hover:text-white flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>Standalone Web Deck (.html)</button>
+          <button onclick="downloadExport('markdown')" class="w-full text-left px-3 py-2.5 min-h-[44px] rounded-lg text-xs text-slate-200 hover:bg-blue-600/30 hover:text-white flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400"></span>Markdown (.md)</button>
+          <button onclick="window.print()" class="w-full text-left px-3 py-2.5 min-h-[44px] rounded-lg text-xs text-slate-200 hover:bg-blue-600/30 hover:text-white flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span>Print to PDF</button>
+        </div>
+      </div>
+
+      <button onclick="startPresentationMode()" class="px-3.5 py-2.5 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.4)] flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+        <span>Present</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- END: StudioWorkspaceRibbon -->
+
+  <!-- Main Dual-Pane Studio Canvas -->
+  <main class="relative z-10 flex-1 max-w-[1536px] w-full mx-auto p-4 sm:p-6 grid grid-cols-12 gap-6 items-start">
+    <!-- Left Filmstrip Outline Sidebar -->
+    <aside class="col-span-12 lg:col-span-3 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl p-4 flex flex-col max-h-[45vh] lg:max-h-[calc(100vh-120px)] lg:sticky lg:top-20 shadow-xl overflow-hidden">
+      <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-3">
+        <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+          <span>Slide Sequence (<span id="slideCountSidebar">0</span>)</span>
+        </div>
+        <button onclick="addNewSlide()" class="inline-flex items-center min-h-[44px] px-2 text-[11px] text-blue-400 hover:text-blue-300 font-semibold transition">+ Add</button>
+      </div>
+
+      <!-- Filmstrip List -->
+      <div id="filmstripList" class="space-y-2.5 overflow-y-auto pr-1 flex-1">
+        <!-- Rendered dynamically -->
+      </div>
+    </aside>
+
+    <!-- Center/Right: Active Slide Editor & Canvas -->
+    <section class="col-span-12 lg:col-span-9 flex flex-col gap-6">
+      <!-- Slide Preview Screen / 16:9 Canvas -->
+      <div id="slideCanvasCard" class="rounded-2xl border border-blue-500/30 bg-[#070e24]/95 backdrop-blur-xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(37,99,235,0.2)] relative min-h-[460px] flex flex-col justify-between transition-all">
+        <!-- Canvas Toolbar -->
+        <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
+          <div class="flex items-center gap-2.5">
+            <span id="canvasSlideNumberBadge" class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-xs font-mono uppercase font-bold border border-blue-400/30">
+              Slide 1
+            </span>
+            <span id="canvasLayoutBadge" class="text-xs font-mono text-slate-400 uppercase">
+              BULLETS LAYOUT
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <!-- Slide Reordering buttons -->
+            <button onclick="moveCurrentSlide(-1)" aria-label="Move slide earlier" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white transition" title="Move slide earlier">
+              ▲
+            </button>
+            <button onclick="moveCurrentSlide(1)" aria-label="Move slide later" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white transition" title="Move slide later">
+              ▼
+            </button>
+            <!-- Duplicate slide -->
+            <button onclick="duplicateCurrentSlide()" aria-label="Duplicate this slide" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white transition" title="Duplicate this slide">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </button>
+            <!-- Regenerate with AI button -->
+            <button onclick="aiRegenerateCurrentSlide()" id="aiRegenBtn" class="text-xs font-mono px-3 py-2 min-h-[44px] rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-400/30 flex items-center gap-1.5 transition">
+              <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              <span>Regenerate with AI</span>
+            </button>
+            <button onclick="deleteCurrentSlide()" aria-label="Delete this slide" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded text-slate-500 hover:text-rose-400 transition" title="Delete this slide">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Slide Content Body -->
+        <div id="slideContentDisplay" class="flex-1 my-auto">
+          <!-- Rendered live -->
+        </div>
+
+        <!-- Speaker Notes Bar -->
+        <div id="speakerNotesDisplay" class="mt-8 pt-4 border-t border-white/[0.08] flex items-start gap-2 text-xs text-slate-400 font-mono">
+          <span class="text-blue-400 font-bold shrink-0">PRESENTER NOTE:</span>
+          <span id="speakerNotesText" class="italic">None</span>
+        </div>
+      </div>
+
+      <!-- Live Slide Editor Form Tab Bar -->
+      <div class="rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl p-6 shadow-xl">
+        <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-5">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider font-mono">Slide Content Editor</h3>
+          </div>
+          <span class="text-xs text-slate-400">Changes update in real-time</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Title & Subtitle Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Slide Title</label>
+              <input id="editSlideTitle" type="text" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans" oninput="updateActiveSlideFromForm()">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Subtitle / Context</label>
+              <input id="editSlideSubtitle" type="text" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans" oninput="updateActiveSlideFromForm()">
+            </div>
+          </div>
+
+          <!-- Layout & Visual Cue -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Slide Layout</label>
+              <select id="editSlideLayout" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans" onchange="handleLayoutChange()">
+                <option value="bullets">Standard High-Impact Bullets</option>
+                <option value="two-column">Two-Column Comparison</option>
+                <option value="metrics">Key Metrics & KPIs</option>
+                <option value="title">Introductory Title Slide</option>
+                <option value="conclusion">Executive Conclusion</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Visual Suggestion Cue</label>
+              <input id="editSlideVisualCue" type="text" placeholder="e.g. Neon trajectory graph showing ARR multiplier" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans" oninput="updateActiveSlideFromForm()">
+            </div>
+          </div>
+
+          <!-- Bullets / Content Area -->
+          <div id="bulletsEditorContainer">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Bullet Points (One per line)</label>
+            <textarea id="editSlideBullets" rows="4" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans resize-none" oninput="updateActiveSlideFromForm()"></textarea>
+          </div>
+
+          <!-- Dual Column Specific Editors -->
+          <div id="twoColumnEditorContainer" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-blue-300 uppercase tracking-wider mb-1.5">Left Column Items (One per line)</label>
+              <textarea id="editLeftColumn" rows="4" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans resize-none" oninput="updateActiveSlideFromForm()"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-emerald-300 uppercase tracking-wider mb-1.5">Right Column Items (One per line)</label>
+              <textarea id="editRightColumn" rows="4" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans resize-none" oninput="updateActiveSlideFromForm()"></textarea>
+            </div>
+          </div>
+
+          <!-- Speaker Notes Editor -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Presenter Speaker Notes</label>
+            <input id="editSlideNotes" type="text" placeholder="Key talking points for the presenter..." class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans" oninput="updateActiveSlideFromForm()">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN: StudioSlideNavigator -->
+  <!-- Slide navigation. Sticky so it stays reachable while scrolling on mobile. -->
+  <div class="sticky bottom-0 z-40 border-t border-white/[0.08] bg-[#030712]/95 backdrop-blur-md">
+    <div class="max-w-[1536px] mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+      <span class="hidden sm:flex items-center gap-2 text-[11px] font-mono text-slate-400 shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Autosave on
+      </span>
+      <div class="flex items-center gap-2 mx-auto sm:mx-0">
+        <button onclick="stepSlide(-1)" id="prevSlideBtn" aria-label="Previous slide" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 border border-white/[0.08] text-xs font-medium transition disabled:opacity-30 disabled:pointer-events-none">&larr; Prev</button>
+        <span id="footerPagination" class="text-xs font-mono text-blue-300 px-2 min-w-[56px] text-center">1 / 1</span>
+        <button onclick="stepSlide(1)" id="nextSlideBtn" aria-label="Next slide" class="px-4 py-2.5 min-h-[44px] rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 border border-white/[0.08] text-xs font-medium transition disabled:opacity-30 disabled:pointer-events-none">Next &rarr;</button>
+      </div>
+      <span class="hidden sm:inline text-[11px] font-mono text-slate-500 shrink-0">&larr; &rarr; to navigate</span>
+    </div>
+  </div>
+  <!-- END: StudioSlideNavigator -->
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <!-- Share Modal -->
+  <div id="shareModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl bg-[#070e24] border border-blue-500/30 p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Share Presentation
+        </h3>
+        <button onclick="closeShareModal()" aria-label="Close share dialog" class="p-1.5 text-slate-400 hover:text-white text-sm">✕</button>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 leading-relaxed">Anyone with this link can view the interactive presentation in any browser.</p>
+      <div class="flex items-center gap-2 mb-4">
+        <input id="shareLinkInput" readonly aria-label="Shareable presentation link" class="flex-1 min-w-0 rounded-xl bg-[#02050e] border border-white/[0.12] text-xs font-mono text-blue-300 p-3">
+        <button onclick="copyShareLink()" id="copyShareBtn" class="shrink-0 px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition">
+          Copy
+        </button>
+      </div>
+      <div class="flex items-center justify-between pt-3 border-t border-white/[0.08] text-xs">
+        <a id="openWebDeckLink" target="_blank" class="text-blue-400 hover:underline">Preview HTML Deck ↗</a>
+        <button onclick="closeShareModal()" class="text-slate-400 hover:text-white">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 max-w-md p-4 rounded-xl shadow-2xl border flex items-center gap-3 font-sans text-xs"></div>
+
+  <!-- Editor Script -->
+  <script src="/js/editor.js"></script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

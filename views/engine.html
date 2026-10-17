@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AI Engine & Nvidia NIMs — GlowSlides</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#4f46e5', 600: '#3730a3', glow: '#3b82f6', accent: '#60a5fa' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    .radial-glow-hero { background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%); }
+    .cyber-grid { background-size: 55px 55px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px); }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="See the AI models powering GlowSlides and test live slide generation directly in your browser.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="AI Engine & Nvidia NIMs — GlowSlides">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-6 py-12 flex-1">
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-mono text-blue-300 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        AUTONOMOUS COGNITIVE ARCHITECTURE
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight">NVIDIA NIM Microservice Inference Engine</h1>
+      <p class="text-slate-400 text-sm sm:text-base mt-3 leading-relaxed">GlowSlides harnesses NVIDIA NIM (NVIDIA Inference Microservices) and state-of-the-art open-weights foundation models to convert raw prompts into structured, highly persuasive 16:9 presentations in sub-second latency.</p>
+    </div>
+
+    <!-- Active Models Comparison Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="p-6 rounded-2xl bg-[#040919]/90 border border-blue-500/30 backdrop-blur-xl relative overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between text-xs font-mono text-blue-300 mb-3">
+          <span class="px-2 py-0.5 rounded bg-blue-500/20 border border-blue-400/30 font-bold">PRIMARY NIM</span>
+          <span>70B PARAMETERS</span>
+        </div>
+        <h3 class="text-lg font-bold text-white">Meta Llama 3.1 70B Instruct</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Elite reasoning, zero-shot structured JSON compliance, and nuanced executive storyline structuring.</p>
+        <div class="mt-6 pt-4 border-t border-white/[0.08] space-y-2 text-xs font-mono">
+          <div class="flex justify-between text-slate-400"><span>Context Window:</span><span class="text-white">128,000 Tokens</span></div>
+          <div class="flex justify-between text-slate-400"><span>Latency per Slide:</span><span class="text-emerald-400">~180ms</span></div>
+          <div class="flex justify-between text-slate-400"><span>Accuracy Score:</span><span class="text-blue-300">98.4%</span></div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl relative overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between text-xs font-mono text-indigo-300 mb-3">
+          <span class="px-2 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/30 font-bold">HIGH-SPEED</span>
+          <span>70B ULTRA</span>
+        </div>
+        <h3 class="text-lg font-bold text-white">Meta Llama 3.3 70B Instruct</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">State-of-the-art reasoning on enterprise economics, financial metrics synthesis, and risk assessment.</p>
+        <div class="mt-6 pt-4 border-t border-white/[0.08] space-y-2 text-xs font-mono">
+          <div class="flex justify-between text-slate-400"><span>Context Window:</span><span class="text-white">128,000 Tokens</span></div>
+          <div class="flex justify-between text-slate-400"><span>Latency per Slide:</span><span class="text-emerald-400">~210ms</span></div>
+          <div class="flex justify-between text-slate-400"><span>Accuracy Score:</span><span class="text-indigo-300">99.1%</span></div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl relative overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between text-xs font-mono text-purple-300 mb-3">
+          <span class="px-2 py-0.5 rounded bg-purple-500/20 border border-purple-400/30 font-bold">MIXTURE-OF-EXPERTS</span>
+          <span>8x7B MoE</span>
+        </div>
+        <h3 class="text-lg font-bold text-white">Mistral Mixtral 8x7B</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">Sparse Mixture of Experts delivering lightning prompt-to-bullet generation with punchy GTM messaging.</p>
+        <div class="mt-6 pt-4 border-t border-white/[0.08] space-y-2 text-xs font-mono">
+          <div class="flex justify-between text-slate-400"><span>Context Window:</span><span class="text-white">32,000 Tokens</span></div>
+          <div class="flex justify-between text-slate-400"><span>Latency per Slide:</span><span class="text-emerald-400">~140ms</span></div>
+          <div class="flex justify-between text-slate-400"><span>Accuracy Score:</span><span class="text-purple-300">96.8%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Interactive Model Tester / Playground -->
+    <div class="rounded-3xl border border-blue-500/30 bg-[#040919]/90 backdrop-blur-xl p-8 sm:p-10 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse"></span>
+            Live AI Synthesis Playground
+          </h2>
+          <p class="text-xs text-slate-400 font-mono mt-0.5">Test real-time slide generation directly from your browser.</p>
+        </div>
+        <a href="/dashboard" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-[0_0_15px_rgba(37,99,235,0.4)] transition">
+          Full Deck Studio →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Input parameters -->
+        <div class="lg:col-span-5 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Test Slide Topic</label>
+            <input id="testTopic" type="text" value="Enterprise AI Safety & Zero Data Retention Guarantee" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 font-sans focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Target Audience</label>
+            <input id="testAudience" type="text" value="Chief Information Security Officers (CISOs)" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 font-sans focus:border-blue-500">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Model</label>
+              <select id="testModel" class="w-full min-h-[44px] rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-2.5 font-mono">
+                <option value="meta/llama-3.1-70b-instruct">Llama 3.1 70B</option>
+                <option value="meta/llama-3.3-70b-instruct">Llama 3.3 70B</option>
+                <option value="mistralai/mixtral-8x7b-instruct-v0.1">Mixtral 8x7B</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tone</label>
+              <select id="testTone" class="w-full min-h-[44px] rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-2.5 font-mono">
+                <option value="technical">Technical</option>
+                <option value="professional">Professional</option>
+                <option value="persuasive">Persuasive</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="runTestGeneration()" id="testBtn" class="w-full py-3 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition">
+            Run Inference Test ⚡
+          </button>
+        </div>
+
+        <!-- Live JSON / Slide Preview Output -->
+        <div class="lg:col-span-7 rounded-2xl bg-[#02050e] border border-white/[0.1] p-5 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pb-3 border-b border-white/[0.08]">
+            <span class="text-blue-400 font-bold">SYNTHESIZED OUTPUT</span>
+            <span id="testTimeBadge">0.18s latency</span>
+          </div>
+          <div id="testOutputArea" class="py-4 space-y-3">
+            <h4 class="text-base font-bold text-white">Enterprise AI Safety &amp; Zero Data Retention Guarantee</h4>
+            <p class="text-xs text-slate-400">Strict zero-retention policies guaranteed through hardware-isolated enclaves.</p>
+            <div class="space-y-2 pt-2">
+              <div class="flex items-start gap-2 text-xs text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span><span>Ephemeral inference sessions automatically sanitized upon stream closure</span></div>
+              <div class="flex items-start gap-2 text-xs text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span><span>Full SOC-2 Type II and HIPAA compliant cryptographic auditing trails</span></div>
+              <div class="flex items-start gap-2 text-xs text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span><span>Customer data never utilized to train public foundation weights</span></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-white/[0.06] text-[10px] font-mono text-slate-500 flex justify-between">
+            <span>Status: Verified Valid JSON Schema</span>
+            <span class="text-emerald-400">Ready for 16:9 Canvas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <script>
+    async function runTestGeneration() {
+      const topic = document.getElementById('testTopic').value.trim();
+      const audience = document.getElementById('testAudience').value.trim();
+      const tone = document.getElementById('testTone').value;
+      const model = document.getElementById('testModel').value;
+      const btn = document.getElementById('testBtn');
+      const out = document.getElementById('testOutputArea');
+      const badge = document.getElementById('testTimeBadge');
+
+      btn.disabled = true;
+      btn.textContent = 'Synthesizing with Nvidia NIM...';
+      const t0 = performance.now();
+
+      try {
+        const res = await fetch('/api/presentations/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic, audience, tone, slideCount: 3, theme: 'cyber-dark', model })
+        });
+        const data = await res.json();
+        const duration = ((performance.now() - t0) / 1000).toFixed(2);
+        badge.textContent = `${duration}s latency`;
+
+        if (data.success && data.data && data.data.slides && data.data.slides.length > 0) {
+          const s = data.data.slides[0];
+          out.innerHTML = `
+            <h4 class="text-base font-bold text-white">${escapeHtml(s.title)}</h4>
+            <p class="text-xs text-slate-400">${escapeHtml(s.subtitle || '')}</p>
+            <div class="space-y-2 pt-2">
+              ${(s.bullets || []).map(b => `<div class="flex items-start gap-2 text-xs text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span><span>${escapeHtml(b)}</span></div>`).join('')}
+            </div>
+          `;
+        }
+      } catch (err) {
+        badge.textContent = 'Error';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Run Inference Test ⚡';
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Dashboard — GlowSlides AI Presentation Studio</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#4f46e5',
+              600: '#3730a3',
+              glow: '#3b82f6',
+              accent: '#60a5fa'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .radial-glow-hero {
+      background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%);
+    }
+    .radial-glow-subtle {
+      background: radial-gradient(circle at 15% 95%, rgba(59, 130, 246, 0.18) 0%, rgba(3, 7, 18, 0) 50%);
+    }
+    .cyber-grid {
+      background-size: 55px 55px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 90% 70% at 70% 60%, black 20%, transparent 80%);
+    }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Generate boardroom-ready presentations from a prompt. Choose slide count, audience, tone, and theme, then edit and export.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Dashboard — GlowSlides AI Presentation Studio">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+  <!-- Ambient Backdrops -->
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 radial-glow-subtle z-0"></div>
+  <div class="pointer-events-none absolute inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="hidden sm:inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 px-3.5 min-h-[44px] rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 transition-all" href="/signup">Sign up</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Main Container -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-6 py-10">
+    <!-- Top Welcome & Telemetry Bar -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <div class="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-blue-400 mb-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+          <span>PRESENTATION GENERATION WORKSPACE</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">Create Board-Ready Decks in Seconds</h1>
+        <p class="text-slate-400 text-sm mt-1">Harness Nvidia AI NIM models to craft narratives, bullet metrics, and interactive presentations.</p>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="flex items-center gap-3">
+        <div class="px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md">
+          <div class="text-[10px] font-mono uppercase text-slate-400">Total Decks</div>
+          <div id="totalDecksCount" class="text-xl font-bold text-white mt-0.5">0</div>
+        </div>
+        <div class="px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md">
+          <div class="text-[10px] font-mono uppercase text-slate-400">Auto-Save</div>
+          <div id="dbStatusBadge" class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mt-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Synced
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generator Card -->
+    <section id="generatorCard" class="mb-14 rounded-2xl border border-blue-500/30 bg-[#040919]/90 backdrop-blur-xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(37,99,235,0.2)] relative overflow-hidden">
+      <!-- Glow effect -->
+      <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-blue-500/10 blur-[80px] pointer-events-none"></div>
+
+      <div class="flex items-center justify-between pb-5 border-b border-white/[0.08] mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-400/30 flex items-center justify-center text-blue-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-white">AI Presentation Synthesis</h2>
+            <p class="text-xs text-slate-400 font-mono">Powered by Nvidia Free NIM API Models</p>
+          </div>
+        </div>
+        <span class="text-[10px] font-mono px-3 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30 uppercase font-semibold">
+          Auto Storyboard
+        </span>
+      </div>
+
+      <!-- Generator Form -->
+      <form id="deckForm" onsubmit="handleGenerate(event)" class="space-y-6">
+        <!-- Topic Input -->
+        <div>
+          <label for="topicInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            Presentation Topic or Raw Notes <span class="text-rose-400">*</span>
+          </label>
+          <div class="relative">
+            <textarea id="topicInput" rows="3" required placeholder="e.g. Q3 Executive Board Deck: Autonomous AI Revenue Growth, Enterprise Security, and Gross Margin expansion..." class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white placeholder-slate-500 text-sm p-4 font-sans transition resize-none"></textarea>
+          </div>
+          <!-- Quick Topic Suggestions Chips -->
+          <div class="flex flex-wrap items-center gap-2 mt-2.5">
+            <span class="text-[11px] font-mono text-slate-400">Try prompt:</span>
+            <button type="button" onclick="setTopic('The Wonders of Birds: Biology, Flight Mechanics, and Global Migration')" class="text-[11px] px-3 py-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 transition">🦅 Birds & Biology</button>
+            <button type="button" onclick="setTopic('Quantum Computing Breakthroughs: Qubits, Cryogenics, and Supercomputing')" class="text-[11px] px-3 py-1.5 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 transition">⚛️ Quantum Tech</button>
+            <button type="button" onclick="setTopic('Q4 SaaS Board Deck: ARR Scaling, Retention, and AI Engine Roadmap')" class="text-[11px] px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.06] transition">💼 Executive Board Deck</button>
+            <button type="button" onclick="setTopic('Deep-Sea Ocean Exploration: Bioluminescence and Hydrothermal Vents')" class="text-[11px] px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 transition">🌊 Deep Sea Science</button>
+          </div>
+        </div>
+
+        <!-- Parameters Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Slide Count -->
+          <div>
+            <label for="slideCount" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              Slide Count
+            </label>
+            <select id="slideCount" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans">
+              <option value="4">4 Slides (Quick Brief)</option>
+              <option value="6" selected>6 Slides (Standard Executive Deck)</option>
+              <option value="8">8 Slides (Comprehensive Pitch)</option>
+              <option value="10">10 Slides (Deep-Dive Strategic)</option>
+              <option value="12">12 Slides (Full Boardroom Deck)</option>
+            </select>
+          </div>
+
+          <!-- Target Audience -->
+          <div>
+            <label for="audienceInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              Target Audience
+            </label>
+            <select id="audienceInput" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans">
+              <option value="Board Members & Executives" selected>Board & Executives</option>
+              <option value="Venture Capital Investors">Venture Capital Investors</option>
+              <option value="Engineering & Product Teams">Engineering & Technical</option>
+              <option value="Enterprise Customers & Prospects">Enterprise Clients</option>
+              <option value="Internal Cross-functional Teams">Internal Company Team</option>
+            </select>
+          </div>
+
+          <!-- Tone of Delivery -->
+          <div>
+            <label for="toneInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              Tone of Delivery
+            </label>
+            <select id="toneInput" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans">
+              <option value="professional" selected>Professional & Strategic</option>
+              <option value="persuasive">Persuasive & High-Impact</option>
+              <option value="technical">Technical & Data-Driven</option>
+              <option value="inspirational">Inspirational & Visionary</option>
+              <option value="educational">Educational & Structured</option>
+            </select>
+          </div>
+
+          <!-- Design Theme -->
+          <div>
+            <label for="themeInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              Design Theme
+            </label>
+            <select id="themeInput" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] focus:border-blue-500 text-white text-sm p-3 font-sans">
+              <option value="cyber-dark" selected>Cyber Dark (Default Neon Blue)</option>
+              <option value="midnight-blue">Midnight Deep Sapphire</option>
+              <option value="emerald-tech">Emerald Matrix Green</option>
+              <option value="purple-aurora">Purple Aurora Gradient</option>
+              <option value="minimal-light">Clean Executive Light</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Nvidia Model Selector & Action -->
+        <div class="pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-slate-400">Nvidia Model:</span>
+            <select id="nvidiaModelSelect" class="min-h-[44px] rounded-lg bg-white/[0.04] border border-white/[0.1] text-xs font-mono text-blue-300 p-2 focus:ring-0">
+              <option value="meta/llama-3.1-70b-instruct">meta/llama-3.1-70b-instruct (Recommended)</option>
+              <option value="meta/llama-3.3-70b-instruct">meta/llama-3.3-70b-instruct</option>
+              <option value="mistralai/mixtral-8x7b-instruct-v0.1">mistralai/mixtral-8x7b-instruct</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <button id="generateBtn" type="submit" class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm tracking-wide shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span>Synthesize Presentation</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Loading / Progress Overlay -->
+      <div id="loadingOverlay" class="hidden absolute inset-0 z-30 bg-[#030816]/95 flex flex-col items-center justify-center backdrop-blur-xl p-6 text-center">
+        <div class="relative flex items-center justify-center mb-5">
+          <div class="w-16 h-16 rounded-full border-2 border-blue-400/20 border-t-blue-400 animate-spin"></div>
+          <div class="w-8 h-8 rounded-full bg-blue-500 shadow-[0_0_20px_#3b82f6] absolute animate-pulse"></div>
+        </div>
+        <h3 class="text-lg font-bold text-white tracking-tight">Synthesizing Presentation with Nvidia AI...</h3>
+        <p id="loadingStatusText" class="text-xs font-mono text-blue-300 mt-2">Connecting to Nvidia NIM inference engine...</p>
+        <div class="w-64 h-1.5 bg-white/10 rounded-full mt-4 overflow-hidden">
+          <div class="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-400 animate-pulse"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Presentations Section -->
+    <section>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-white tracking-tight">Your Presentations</h2>
+          <p class="text-slate-400 text-xs mt-0.5">Saved to your workspace with instant multi-format export.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Search input -->
+          <div class="relative flex-1 min-w-[160px] sm:flex-none">
+            <input id="searchInput" type="text" placeholder="Search presentations..." oninput="handleSearch(this.value)" aria-label="Search presentations" class="w-full sm:w-56 rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white placeholder-slate-500 pl-8 pr-3 py-2.5 min-h-[44px] focus:border-blue-500 focus:ring-0 transition">
+            <svg class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+
+          <!-- Filter favorites button -->
+          <button id="favoriteFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" class="text-xs font-medium px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] flex items-center gap-1.5 transition">
+            <span class="text-amber-400">★</span>
+            <span class="hidden sm:inline">Favorites</span>
+          </button>
+
+          <button onclick="loadPresentations()" aria-label="Refresh presentations" class="text-xs font-medium px-3 py-2.5 min-h-[44px] rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] flex items-center gap-1.5 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span class="hidden sm:inline">Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Presentations Grid -->
+      <div id="decksContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skeleton placeholders -->
+        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] animate-pulse h-56"></div>
+        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] animate-pulse h-56"></div>
+        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] animate-pulse h-56"></div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden text-center py-16 px-4 rounded-2xl border border-dashed border-white/[0.1] bg-white/[0.01]">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 text-blue-400 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+        </div>
+        <h3 class="text-base font-semibold text-white">No presentations crafted yet</h3>
+        <p class="text-slate-400 text-xs max-w-sm mx-auto mt-1 mb-5">Type any topic or prompt above to generate your first boardroom-ready presentation.</p>
+        <button onclick="setTopic('Q4 Executive Roadmap: Scaling AI, Revenue, and Enterprise Retention'); document.getElementById('generatorCard').scrollIntoView({behavior: 'smooth'})" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition">
+          Generate Demo Deck
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 max-w-md p-4 rounded-xl shadow-2xl border flex items-center gap-3 font-sans text-xs"></div>
+
+  <!-- Dashboard Script -->
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

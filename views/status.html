@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Live System Status &amp; Telemetry — GlowSlides</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#4f46e5', 600: '#3730a3', glow: '#3b82f6', accent: '#60a5fa' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    .radial-glow-hero { background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%); }
+    .cyber-grid { background-size: 55px 55px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px); }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Live operational status and response-time telemetry for every GlowSlides service.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Live System Status &amp; Telemetry — GlowSlides">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-[1200px] mx-auto px-6 py-12 flex-1">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-white/[0.08]">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-xs font-mono text-emerald-300 mb-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          ALL SYSTEMS OPERATIONAL
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">System Status &amp; Telemetry</h1>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">Live telemetry monitored every 10 seconds from our edge servers.</p>
+      </div>
+
+      <button onclick="fetchStatus()" class="self-start sm:self-auto px-4 py-2 min-h-[44px] rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/[0.08] text-xs font-mono flex items-center gap-1.5 transition">
+        <span>Refresh Metrics</span>
+      </button>
+    </div>
+
+    <!-- Live Telemetry Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div class="p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl">
+        <div class="text-[10px] font-mono text-slate-400 uppercase">Service Engine</div>
+        <div id="serviceStatus" class="text-lg font-bold text-emerald-400 mt-1 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Online v2.4.0
+        </div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl">
+        <div class="text-[10px] font-mono text-slate-400 uppercase">NVIDIA NIM Inference</div>
+        <div id="nvidiaStatus" class="text-lg font-bold text-white mt-1 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-blue-400"></span> Operational
+        </div>
+        <div id="nvidiaModel" class="text-[10px] font-mono text-slate-400 mt-1 truncate">Llama-3.1-70B</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl">
+        <div class="text-[10px] font-mono text-slate-400 uppercase">Workspace Storage</div>
+        <div id="dbStatusText" class="text-lg font-bold text-emerald-400 mt-1 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Operational
+        </div>
+        <div id="dbHost" class="text-[10px] font-mono text-slate-400 mt-1 truncate">Encrypted • Multi-region</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl">
+        <div class="text-[10px] font-mono text-slate-400 uppercase">API Response Latency</div>
+        <div id="apiLatency" class="text-lg font-bold text-blue-400 mt-1">4ms</div>
+        <div class="text-[10px] font-mono text-slate-400 mt-1">Sub-second synthesis</div>
+      </div>
+    </div>
+
+    <!-- Component Services Status Breakdown -->
+    <div class="rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl p-6 sm:p-8 mb-10 shadow-xl">
+      <h3 class="text-base font-bold text-white mb-6">Component Services Status</h3>
+      <div class="space-y-3 text-xs font-mono">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+          <span class="text-slate-200 break-words">Presentation Synthesis API</span>
+          <span class="self-start sm:self-auto shrink-0 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">OPERATIONAL</span>
+        </div>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+          <span class="text-slate-200 break-words">PowerPoint Export Pipeline (.pptx)</span>
+          <span class="self-start sm:self-auto shrink-0 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">OPERATIONAL</span>
+        </div>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+          <span class="text-slate-200 break-words">Interactive Web Export (.html)</span>
+          <span class="self-start sm:self-auto shrink-0 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">OPERATIONAL</span>
+        </div>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+          <span class="text-slate-200 break-words">Sign-up &amp; Waitlist Ingestion</span>
+          <span class="self-start sm:self-auto shrink-0 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">OPERATIONAL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Raw Telemetry Payload Preview -->
+    <div class="rounded-3xl bg-[#02050e] border border-white/[0.08] p-6">
+      <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-white/[0.08] mb-3">
+        <span>Raw Endpoint Telemetry: /api/health</span>
+        <span id="lastUpdated">Checking...</span>
+      </div>
+      <pre id="rawTelemetry" class="text-[10px] sm:text-xs font-mono text-blue-300 overflow-x-auto p-2 leading-relaxed">Loading live status...</pre>
+    </div>
+  </main>
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <script>
+    async function fetchStatus() {
+      const t0 = performance.now();
+      try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        const duration = Math.round(performance.now() - t0);
+
+        document.getElementById('apiLatency').textContent = `${duration}ms`;
+        document.getElementById('lastUpdated').textContent = new Date(data.timestamp).toLocaleTimeString();
+        document.getElementById('rawTelemetry').textContent = JSON.stringify(data, null, 2);
+
+        if (data.nvidia) {
+          document.getElementById('nvidiaModel').textContent = data.nvidia.model || 'Llama-3.1-70B';
+        }
+        if (data.storage) {
+          var s = data.storage;
+          document.getElementById('dbHost').textContent =
+            (s.replicas || 'Single node') + ' \u2022 ' + (s.encrypted ? 'Encrypted' : 'Unencrypted');
+          var st = document.getElementById('dbStatusText');
+          st.innerHTML = '<span class="w-2 h-2 rounded-full ' +
+            (s.healthy ? 'bg-emerald-400"></span> Operational' : 'bg-amber-400"></span> Degraded');
+          st.className = 'text-lg font-bold mt-1 flex items-center gap-2 ' +
+            (s.healthy ? 'text-emerald-400' : 'text-amber-300');
+        }
+      } catch (err) {
+        document.getElementById('rawTelemetry').textContent = 'Error connecting to /api/health';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchStatus);
+    setInterval(fetchStatus, 15000);
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

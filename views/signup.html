@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Create Your Account — GlowSlides</title>
+  <meta name="description" content="Sign up for GlowSlides to instantly generate boardroom-ready AI presentations and pitch decks.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/app.css">
+  <meta property="og:title" content="Create Your Account — GlowSlides">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="bg-[#030712] text-[#f8fafc] font-sans antialiased min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-blue-600 selection:text-white">
+  <!-- Glowing background elements -->
+  <div class="pointer-events-none fixed inset-0 radial-glow z-0"></div>
+  <div class="pointer-events-none fixed inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 border-b border-white/[0.08] bg-[#030712]/80 backdrop-blur-xl">
+    <div class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover" height="32" src="/images/logo.png" width="32" onerror="this.remove()">
+        <span class="text-xl font-bold tracking-tight text-white">GlowSlides</span>
+      </a>
+      <div class="flex items-center gap-3 text-xs">
+        <span class="text-slate-400">Already have an account?</span>
+        <a href="/login" class="px-3.5 py-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-blue-400 font-semibold border border-white/[0.1] transition">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="relative z-10 max-w-md w-full mx-auto px-6 py-12 flex-1 flex flex-col justify-center">
+    <div class="rounded-3xl border border-blue-500/30 bg-[#040919]/90 backdrop-blur-xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(37,99,235,0.2)] relative">
+      
+      <!-- Top Icon & Header -->
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-400/30 flex items-center justify-center text-blue-400 mx-auto mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-white tracking-tight">Create Your Account</h1>
+        <p class="text-xs text-slate-400 mt-1">Instant access to AI presentation superpowers. No code required.</p>
+      </div>
+
+      <!-- Notification Banner -->
+      <div id="notifyBanner" class="hidden mb-5 p-3 rounded-xl text-xs font-medium border"></div>
+
+      <!-- Direct Instant Signup Form -->
+      <form onsubmit="handleSignup(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Full Name</label>
+          <input id="userName" type="text" placeholder="Alex Morgan" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3.5 focus:border-blue-500 focus:outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Email Address *</label>
+          <input id="userEmail" type="email" required placeholder="alex@example.com" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3.5 focus:border-blue-500 focus:outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Password (Min. 6 chars) *</label>
+          <input id="userPassword" type="password" required minlength="6" placeholder="••••••••••••" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3.5 focus:border-blue-500 focus:outline-none transition">
+        </div>
+
+        <button type="submit" id="signupBtn" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition">
+          Create Account & Enter Studio 🚀
+        </button>
+      </form>
+
+      <!-- Quick Access Option -->
+      <div class="relative my-6 text-center">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/[0.08]"></div></div>
+        <span class="relative px-3 bg-[#040919] text-[10px] font-mono uppercase text-slate-500">OR QUICK ACCESS</span>
+      </div>
+
+      <a href="/dashboard" class="w-full inline-flex items-center justify-center py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/[0.1] text-xs font-medium transition">
+        Continue as Guest (No Login Required)
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-6 text-center text-xs text-slate-500">
+    GlowSlides Inc. © 2026. Boardroom-Ready AI Presentations.
+  </footer>
+
+  <script>
+    function showBanner(text, isError = false) {
+      const banner = document.getElementById('notifyBanner');
+      banner.textContent = text;
+      banner.className = isError
+        ? 'mb-5 p-3 rounded-xl text-xs font-medium bg-rose-500/10 border-rose-500/30 text-rose-300'
+        : 'mb-5 p-3 rounded-xl text-xs font-medium bg-emerald-500/10 border-emerald-500/30 text-emerald-300';
+      banner.classList.remove('hidden');
+    }
+
+    async function handleSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('userEmail').value.trim();
+      const password = document.getElementById('userPassword').value;
+      const name = document.getElementById('userName').value.trim();
+      const btn = document.getElementById('signupBtn');
+
+      if (!email || !email.includes('@')) {
+        showBanner('Please enter a valid email address.', true);
+        return;
+      }
+      if (!password || password.length < 6) {
+        showBanner('Password must be at least 6 characters.', true);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating Account...';
+
+      try {
+        const res = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, name })
+        });
+        const data = await res.json();
+
+        if (!data.success) {
+          showBanner(data.error || 'Failed to create account.', true);
+          btn.disabled = false;
+          btn.textContent = 'Create Account & Enter Studio 🚀';
+          return;
+        }
+
+        // Store JWT token and session user
+        if (data.token) {
+          localStorage.setItem('glowslides_jwt', data.token);
+        }
+        sessionStorage.setItem('sc_user', email);
+        sessionStorage.setItem('sc_user_name', data.user?.name || email);
+
+        showBanner('Account created! Entering workspace...', false);
+
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 600);
+      } catch (err) {
+        showBanner('Network error during account creation. Please try again.', true);
+        btn.disabled = false;
+        btn.textContent = 'Create Account & Enter Studio 🚀';
+      }
+    }
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

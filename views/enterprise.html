@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Enterprise Presentation Infrastructure — GlowSlides</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#4f46e5', 600: '#3730a3', glow: '#3b82f6', accent: '#60a5fa' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+    .radial-glow-hero { background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%); }
+    .cyber-grid { background-size: 55px 55px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px); }
+  </style>
+<meta name="theme-color" content="#030712">
+<meta name="description" content="Enterprise-grade governance for GlowSlides: brand kit enforcement, zero data retention, and dedicated single-tenant deployment.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="Enterprise Presentation Infrastructure — GlowSlides">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white flex flex-col justify-between">
+  <div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+  <div class="pointer-events-none fixed inset-0 cyber-grid z-0"></div>
+
+  <!-- Header -->
+  <!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="/images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-6 py-12 flex-1">
+    <div class="max-w-3xl mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-mono text-blue-300 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        ENTERPRISE GOVERNANCE &amp; HARDENED SECURITY
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight">Boardroom Security. Strict Brand Enforcement.</h1>
+      <p class="text-slate-400 text-sm sm:text-base mt-3 leading-relaxed">Fortune 500 leadership and fast-growing unicorns trust GlowSlides to synthesize boardroom decks with guaranteed zero model training retention, custom corporate font kits, and automated financial guardrails.</p>
+    </div>
+
+    <!-- 4 Key Enterprise Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="p-8 rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl shadow-xl">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400 mb-5 text-xl font-bold">01</div>
+        <h3 class="text-xl font-bold text-white mb-2">Automated Brand Kit Enforcement</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Lock custom typography, corporate hex palettes, logo placements, and aspect ratios. Every deck generated by any executive adheres 100% to brand governance rules.</p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl shadow-xl">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-400/20 flex items-center justify-center text-emerald-400 mb-5 text-xl font-bold">02</div>
+        <h3 class="text-xl font-bold text-white mb-2">Zero Data Retention (ZDR) Guarantees</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Your financial figures, strategic memos, and M&amp;A scenarios are never retained or utilized to train LLMs. Hardware-isolated compute enclaves ensure complete confidentiality.</p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl shadow-xl">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-400/20 flex items-center justify-center text-purple-400 mb-5 text-xl font-bold">03</div>
+        <h3 class="text-xl font-bold text-white mb-2">SOC-2 Type II &amp; HIPAA Certified</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Third-party audited annual controls with immutable audit logs, AES-256 encryption at rest, and TLS 1.3 encryption in transit for all presentation streams.</p>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-[#040919]/90 border border-white/[0.08] backdrop-blur-xl shadow-xl">
+        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 mb-5 text-xl font-bold">04</div>
+        <h3 class="text-xl font-bold text-white mb-2">Dedicated Single-Tenant Deployment</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Run in an isolated cloud environment (AWS, GCP, or Azure) with your own dedicated storage, private networking, and a data residency region you choose.</p>
+      </div>
+    </div>
+
+    <!-- Enterprise Demo Request Form -->
+    <div id="demoForm" class="rounded-3xl border border-blue-500/30 bg-[#040919]/90 backdrop-blur-xl p-8 sm:p-12 shadow-2xl max-w-4xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <h2 class="text-2xl font-bold text-white">Book an Executive Consultation &amp; Pilot</h2>
+        <p class="text-xs text-slate-400 mt-1.5">Schedule a tailored demonstration showing GlowSlides running on your company brand guidelines.</p>
+      </div>
+
+      <form onsubmit="handleDemoRequest(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Full Name *</label>
+            <input id="demoName" type="text" required placeholder="Jane Doe" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email Address *</label>
+            <input id="demoEmail" type="email" required placeholder="jane@enterprise.com" class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 focus:border-blue-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Company Name *</label>
+            <input id="demoCompany" type="text" required placeholder="Acme Global Inc." class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Company Size</label>
+            <select id="demoSize" class="w-full min-h-[44px] rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 font-sans">
+              <option value="50-250">50 - 250 Employees</option>
+              <option value="251-1000" selected>251 - 1,000 Employees</option>
+              <option value="1000+">1,000+ Employees</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Primary Presentation Use Case</label>
+          <input id="demoNotes" type="text" placeholder="e.g. Executive Board Decks, Quarterly Business Reviews, Enterprise Sales Collateral..." class="w-full rounded-xl bg-[#02050e] border border-white/[0.12] text-xs text-white p-3 focus:border-blue-500">
+        </div>
+
+        <div class="pt-4 text-center">
+          <button id="demoSubmitBtn" type="submit" class="px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition">
+            Submit Enterprise Demo Request →
+          </button>
+          <div id="demoSuccessMsg" class="hidden text-xs font-mono text-emerald-400 mt-3"></div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+  <script>
+    async function handleDemoRequest(e) {
+      e.preventDefault();
+      const email = document.getElementById('demoEmail').value;
+      const name = document.getElementById('demoName').value;
+      const company = document.getElementById('demoCompany').value;
+      const btn = document.getElementById('demoSubmitBtn');
+      const msg = document.getElementById('demoSuccessMsg');
+
+      btn.disabled = true;
+      btn.textContent = 'Registering Demo Request...';
+
+      try {
+        await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, plan: 'enterprise-custom', source: `demo-request: ${name} (${company})` })
+        });
+        msg.textContent = `✓ Thank you, ${name}! Our Enterprise Solutions Architect will reach out to ${email} within 24 hours.`;
+        msg.classList.remove('hidden');
+        btn.textContent = 'Request Received!';
+        btn.className = 'px-8 py-3.5 rounded-xl bg-emerald-600 text-white font-semibold text-xs border border-emerald-400/40 cursor-default';
+      } catch (err) {
+        msg.textContent = 'Request logged. We will contact you shortly.';
+        msg.classList.remove('hidden');
+      }
+    }
+  </script>
+  <script src="/js/cookie-consent.js"></script>
+</body>
+</html>

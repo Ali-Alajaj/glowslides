@@ -1,0 +1,822 @@
+<!DOCTYPE html><html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GlowSlides — Presentations crafted at the speed of thought</title>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#4f46e5',
+              600: '#3730a3',
+              glow: '#3b82f6',
+              accent: '#60a5fa'
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 7s ease-in-out 2s infinite',
+            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.45' },
+              '50%': { opacity: '0.85' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles for Lighting and Isometric Rendering -->
+<style data-purpose="ambient-lighting">
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    
+    .radial-glow-hero {
+      background: radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.42) 0%, rgba(29, 78, 216, 0.18) 35%, rgba(3, 7, 18, 0) 70%);
+    }
+
+    .radial-glow-subtle {
+      background: radial-gradient(circle at 15% 95%, rgba(59, 130, 246, 0.18) 0%, rgba(3, 7, 18, 0) 50%);
+    }
+
+    .cyber-grid {
+      background-size: 55px 55px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 90% 70% at 70% 60%, black 20%, transparent 80%);
+    }
+  </style>
+<style data-purpose="isometric-deck-elements">
+    .isometric-stage {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    /* Transform angles mimicking the reference isometric projection */
+    .iso-tilt {
+      transform: rotateX(60deg) rotateZ(-45deg);
+      transform-style: preserve-3d;
+    }
+
+    .glass-base-slab {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(30, 58, 138, 0.2) 100%);
+      box-shadow: 
+        0 0 50px rgba(59, 130, 246, 0.5),
+        inset 0 0 20px rgba(147, 197, 253, 0.3);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(147, 197, 253, 0.4);
+    }
+
+    .glass-extrusion-bottom {
+      background: linear-gradient(180deg, rgba(30, 64, 175, 0.6) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-left: 1px solid rgba(96, 165, 250, 0.3);
+      border-right: 1px solid rgba(96, 165, 250, 0.3);
+      border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .wireframe-slide-float {
+      background: rgba(15, 23, 42, 0.2);
+      border: 1px solid rgba(191, 219, 254, 0.7);
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.25);
+      backdrop-filter: blur(4px);
+    }
+
+    .node-dot {
+      box-shadow: 0 0 10px #ffffff, 0 0 20px #60a5fa;
+    }
+  </style>
+<!-- END: Custom Styles -->
+<meta name="theme-color" content="#030712">
+<meta name="description" content="GlowSlides turns a single prompt into a polished, boardroom-ready presentation in seconds. AI slide generation, editing, and PowerPoint export.">
+<link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:title" content="GlowSlides — Presentations crafted at the speed of thought">
+  <meta property="og:description" content="AI-powered presentation builder creating boardroom-ready decks in seconds.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="relative min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+<!-- BEGIN: Ambient Visual Backdrops -->
+<!-- Upper & Hero Deep Blue Diffused Light Spheres -->
+<div class="pointer-events-none fixed inset-0 radial-glow-hero z-0"></div>
+<div class="pointer-events-none fixed inset-0 radial-glow-subtle z-0"></div>
+<div class="pointer-events-none absolute inset-0 cyber-grid z-0"></div>
+<!-- END: Ambient Visual Backdrops -->
+<!-- BEGIN: CanonicalTopNavigation -->
+<header class="relative z-50 w-full border-b border-white/[0.08] backdrop-blur-md bg-gray-950/70" data-purpose="site-navigation">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <a aria-label="GlowSlides Home" class="flex items-center gap-3 group shrink-0 min-h-[44px]" href="/">
+      <img alt="GlowSlides logo" class="w-8 h-8 rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]" src="images/logo.png" width="32" height="32" onerror="this.remove()">
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-1">
+        GlowSlides
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse"></span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-1" data-purpose="main-menu">
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/dashboard">Dashboard</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/templates">Templates</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/engine">AI Engine</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/integrations">Integrations</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/enterprise">Enterprise</a>
+      <a class="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors" href="/pricing">Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0" data-purpose="header-actions">
+      <a class="hidden md:inline-flex items-center text-sm font-medium text-slate-300 hover:text-white px-4 min-h-[44px] rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all" href="/login">Sign in</a>
+      <a class="hidden sm:inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 px-3.5 min-h-[44px] rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 transition-all" href="/signup">Sign up</a>
+      <a class="group inline-flex items-center gap-2 text-sm font-semibold text-white px-3 sm:px-4 min-h-[44px] rounded-lg bg-blue-600 hover:bg-blue-500 border border-blue-400/40 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all" href="/dashboard">
+        <span class="hidden sm:inline">Open Studio</span>
+        <span class="sm:hidden">Studio</span>
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu trigger (shown only where the desktop nav is hidden) -->
+      <button id="mobileNavToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation menu"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 transition-colors">
+        <svg data-icon="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg data-icon="close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile navigation panel -->
+  <div id="mobileNavPanel" class="hidden md:hidden border-t border-white/[0.08] bg-gray-950/95 backdrop-blur-xl" data-purpose="mobile-menu">
+    <nav class="max-w-[1440px] mx-auto px-4 py-2 flex flex-col" aria-label="Mobile navigation">
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/dashboard">Dashboard</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/templates">Templates</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/engine">AI Engine</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/integrations">Integrations</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/enterprise">Enterprise</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/pricing">Pricing</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/status">System Status</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/security">Security</a>
+      <a class="block w-full py-3.5 px-1 text-[15px] font-medium text-slate-200 hover:text-white border-b border-white/[0.06]" href="/settings">Settings</a>
+      <a class="mt-3 mb-4 inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-[15px] font-medium text-slate-200" href="/login">Sign in</a>
+    </nav>
+  </div>
+
+  <script src="/js/nav.js" defer></script>
+</header>
+<!-- END: CanonicalTopNavigation -->
+<!-- BEGIN: HeroSection -->
+<main class="relative z-10 max-w-[1440px] mx-auto px-6 pt-12 lg:pt-20 pb-28">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<!-- Left Column: Copy & CTAs -->
+<div class="lg:col-span-6 flex flex-col items-start space-y-7">
+<!-- Status Badges Bar (Matches Reference Layout) -->
+<div class="flex flex-wrap items-center gap-2.5 text-[11px] font-semibold tracking-wider uppercase text-slate-400">
+<span class="px-2.5 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300 backdrop-blur-sm">
+            SOC 2 TYPE II CERTIFIED
+          </span>
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+<span class="text-slate-400">STATUS:</span>
+<div class="flex items-center gap-1.5 text-blue-400 font-bold">
+<span class="w-2 h-2 rounded-sm bg-blue-400 shadow-[0_0_8px_#60a5fa] inline-block animate-pulse"></span>
+              AI SYNTHESIS ACTIVE
+            </div>
+</div>
+</div>
+<!-- Big Bold Hero Headline -->
+<h1 class="text-5xl sm:text-6xl lg:text-[70px] font-bold tracking-tight text-white leading-[1.08]">Simple work,<br class="hidden sm:inline"> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">incredible results.</span></h1>
+<!-- Subheadline -->
+<p class="text-base sm:text-lg text-slate-400 max-w-xl font-normal leading-relaxed">Turn prompts, notes, and data into polished, boardroom-ready slide decks in seconds. The autonomous AI presentation builder designed to craft narratives, charts, and custom layouts effortlessly.</p>
+<!-- CTA Buttons Group (Reference style: wide blue gradient button with arrow) -->
+<div class="pt-2 flex flex-wrap items-center gap-4">
+<a class="group inline-flex items-center gap-3.5 text-sm font-semibold text-white px-6 py-3.5 rounded-lg bg-blue-600 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-blue-400/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0" href="/dashboard"><span class="">Generate Your First Deck</span><span class="w-6 h-6 rounded bg-white/10 flex items-center justify-center transition-transform group-hover:translate-x-1"><svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg></span></a>
+<a class="inline-flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white px-5 py-3.5 rounded-lg border border-white/[0.08] hover:bg-white/[0.04] transition-colors" href="/dashboard">
+<svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+<path d="M8 5v14l11-7z"></path>
+</svg>
+            Launch Studio
+          </a>
+</div>
+</div>
+<!-- Right Column: Interactive Isometric 3D Deck Canvas Visual -->
+<div class="hidden lg:flex lg:col-span-6 relative items-center justify-center min-h-[460px] lg:min-h-[540px] isometric-stage self-start pt-1" data-purpose="isometric-hero-graphic">
+<!-- Coordinate Isometric Grid Lines Underlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+<svg class="w-[800px] h-[600px] text-blue-500/20" fill="none" viewBox="0 0 800 600">
+<path d="M50 300 L400 100 L750 300 L400 500 Z" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1"></path>
+<path d="M150 300 L400 160 L650 300 L400 440 Z" stroke="currentColor" stroke-width="0.8"></path>
+<line stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8" x1="400" x2="400" y1="100" y2="500"></line>
+<line stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8" x1="50" x2="750" y1="300" y2="300"></line>
+</svg>
+</div>
+<!-- Projected Isometric Stack matching Reference Graphic -->
+<div class="relative w-[340px] sm:w-[420px] h-[340px] sm:h-[420px] iso-tilt flex items-center justify-center">
+<!-- Deep Floor Shadow & Ambient Light -->
+<div class="absolute w-[360px] h-[360px] rounded-3xl bg-blue-600/30 blur-[60px] transform translate-z-[-60px]"></div>
+<!-- Base Isometric Layer: Extruded Illuminated Pedestal (Deck Base Foundation) -->
+<div class="relative w-[320px] sm:w-[380px] h-[320px] sm:h-[380px] rounded-2xl glass-base-slab transform transition-transform duration-700">
+<!-- Slab 3D Thickness extrusion -->
+<div class="absolute -bottom-8 left-0 right-0 h-8 rounded-b-2xl glass-extrusion-bottom"></div>
+<!-- Glowing Nodes at Corners of Base Layer -->
+<div class="absolute top-2 left-2 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-white node-dot"></div>
+<!-- Inner Grid Pattern of Base Slide Deck -->
+<div class="absolute inset-4 rounded-xl border border-blue-400/20 bg-blue-950/20 flex flex-col justify-between p-4 overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-[9px] font-mono tracking-widest text-blue-200/70 uppercase">SLIDE 01 // EXECUTIVE SUMMARY</span>
+<span class="text-[9px] font-mono text-blue-400">98.4% FIDELITY</span>
+</div>
+<!-- Base Slide Wave Graph (Neon data trajectory like reference) -->
+<div class="relative h-28 w-full flex items-center">
+<svg class="w-full h-full text-blue-300" fill="none" viewBox="0 0 300 100">
+<path d="M10 80 Q 75 10, 150 65 T 290 30" fill="none" stroke="rgba(147, 197, 253, 0.9)" stroke-width="2.5"></path>
+<path d="M10 80 Q 75 10, 150 65 T 290 30 L 290 95 L 10 95 Z" fill="url(#gradGraph)" opacity="0.25"></path>
+<defs>
+<linearGradient id="gradGraph" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3b82f6"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</linearGradient>
+</defs>
+<!-- Graph Points -->
+<circle class="node-dot" cx="150" cy="65" fill="#ffffff" r="3.5"></circle>
+<circle class="node-dot" cx="290" cy="30" fill="#ffffff" r="3.5"></circle>
+</svg>
+</div>
+<!-- Pill Label within Base Slide -->
+<div class="self-start px-2.5 py-1 rounded bg-blue-500/30 border border-blue-300/40 text-[9px] font-semibold text-blue-100 tracking-wider">
+                DECK BENCHMARKS &amp; ROAS
+              </div>
+</div>
+<!-- Metric labels on the isometric edge (like reference image: 'SECURITY BENCHMARKS', 'MTTR: 05s') -->
+<div class="absolute -left-12 bottom-10 -rotate-90 text-[8px] tracking-[0.25em] font-mono text-blue-300/60 uppercase">
+              REVENUE_IMPACT_MODEL
+            </div>
+<div class="absolute -right-8 bottom-6 rotate-45 text-[8px] tracking-[0.25em] font-mono text-blue-300/60 uppercase">
+              VELOCITY: +420%
+            </div>
+</div>
+<!-- Vertical Connector Laser Axis Lines -->
+<div class="absolute w-[2px] h-32 bg-gradient-to-t from-blue-400 to-transparent left-12 top-10 pointer-events-none opacity-60"></div>
+<div class="absolute w-[2px] h-32 bg-gradient-to-t from-blue-400 to-transparent right-12 top-10 pointer-events-none opacity-60"></div>
+<!-- Floating Layer 2: Wireframe Projected Hologram Card ('PRESENTATION TRENDS') -->
+<div class="absolute -top-12 -left-4 w-[280px] sm:w-[330px] h-[220px] sm:h-[260px] rounded-xl wireframe-slide-float p-4 flex flex-col justify-between animate-float-slow transform translate-z-[90px]">
+<!-- Floating Nodes -->
+<div class="absolute -top-1 -left-1 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute -bottom-1 -left-1 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="absolute -bottom-1 -right-1 w-2 h-2 rounded-full bg-white node-dot"></div>
+<div class="flex items-center justify-between border-b border-blue-200/20 pb-2">
+<span class="text-[10px] font-bold tracking-widest text-blue-200 uppercase flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> SLIDE 02: MARKET TRACTION</span>
+<span class="text-[9px] font-mono text-blue-300/80">AUTO_LAYOUT_V3</span>
+</div>
+<div class="space-y-2.5 my-auto">
+<div class="text-[11px] font-medium text-slate-200 leading-snug">
+                Measuring audience engagement speed across executive slides
+              </div>
+<!-- Mini Slide Skeleton Lines -->
+<div class="space-y-1.5 pt-1">
+<div class="w-full h-1.5 bg-blue-300/30 rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-gradient-to-r from-blue-400 to-indigo-300"></div>
+</div>
+<div class="w-4/5 h-1.5 bg-blue-300/20 rounded-full"></div>
+<div class="w-1/2 h-1.5 bg-blue-300/20 rounded-full"></div>
+</div>
+</div>
+<!-- Bottom Floating Tag Badge -->
+<div class="flex items-center justify-between pt-2 border-t border-blue-200/20">
+<span class="text-[9px] text-blue-200/70 font-mono">16:9 • READY TO EXPORT</span>
+<div class="px-2 py-0.5 rounded bg-blue-500/40 text-[9px] font-semibold text-blue-100">
+                SYNTHESIZED
+              </div>
+</div>
+</div>
+<!-- Micro Floating Insight Tag -->
+<div class="absolute -top-24 right-0 px-3.5 py-1.5 rounded-md bg-blue-900/60 border border-blue-400/50 backdrop-blur-md text-[10px] font-mono font-semibold text-blue-200 tracking-wider shadow-[0_0_20px_rgba(59,130,246,0.3)] animate-float-delayed transform translate-z-[120px]">AI DECK SYNTHESIS // &lt; 200MS</div>
+</div>
+</div>
+</div>
+<!-- BEGIN: Client / Brand Trust Bar -->
+<div class="w-full max-w-5xl mx-auto mt-16 rounded-2xl border border-blue-500/20 bg-[#040919]/90 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(37,99,235,0.22)] overflow-hidden relative pointer-events-none select-none" data-purpose="automated-demo-showcase" role="img" aria-label="Animated demonstration of GlowSlides generating a 12-slide boardroom deck from a single prompt.">
+  <style>
+    @keyframes demoPacingTyping {
+      0%, 8% { width: 0; }
+      24%, 88% { width: 100%; }
+      94%, 100% { width: 0; }
+    }
+    @keyframes demoPacingBlink {
+      0%, 50% { border-color: #60a5fa; }
+      51%, 100% { border-color: transparent; }
+    }
+    /*
+      Cursor path is driven by `left`/`top` percentages, which resolve against the
+      stage container (a positioned ancestor). NOTE: percentages inside
+      `transform: translate()` resolve against the element's OWN width/height, which
+      is only 20px here -- that is what previously sent the cursor off to the left
+      instead of onto the Build Deck button on the right.
+
+      Timeline contract (typing runs 8% -> 24%, see demoPacingTyping):
+        - 0% .. 4%    : cursor fades in at its resting spot
+        - 4% .. 24%   : ABSOLUTELY STILL while the prompt types itself out
+        - 24% .. 27%  : travels RIGHT to the Build Deck button, only after typing ends
+        - 27.5% .. 30%: click (scale-down, then release) in sync with demoPacingBtnPressRefined
+        - 34% .. 100% : faded out (the synth overlay is fully opaque by 34%)
+    */
+    @keyframes demoPacingCursorRefined {
+      0%, 2% { left: 26%; top: 68%; opacity: 0; transform: scale(1); }
+      4% { left: 26%; top: 68%; opacity: 1; transform: scale(1); }
+      24% { left: 26%; top: 68%; opacity: 1; transform: scale(1); }
+      27% { left: calc(100% - 78px); top: 62px; opacity: 1; transform: scale(1); }
+      27.5% { left: calc(100% - 78px); top: 62px; opacity: 1; transform: scale(0.86); }
+      29% { left: calc(100% - 78px); top: 62px; opacity: 1; transform: scale(0.86); }
+      30.5% { left: calc(100% - 78px); top: 62px; opacity: 1; transform: scale(1); }
+      /* Fade out as the synthesis overlay becomes opaque, so it never floats on top of it */
+      34%, 100% { left: calc(100% - 78px); top: 62px; opacity: 0; transform: scale(1); }
+    }
+    @keyframes demoPacingBtnPressRefined {
+      0%, 26.5% { transform: scale(1); filter: brightness(1); box-shadow: 0 0 16px rgba(59,130,246,0.6); }
+      27.5%, 29% { transform: scale(0.92); filter: brightness(1.4); box-shadow: 0 0 28px rgba(96,165,250,1); }
+      30.5%, 34% { transform: scale(1); filter: brightness(1.1); box-shadow: 0 0 18px rgba(59,130,246,0.8); }
+      35%, 100% { transform: scale(1); filter: brightness(1); box-shadow: 0 0 16px rgba(59,130,246,0.6); }
+    }
+    /* `pointer-events` is intentionally NOT animated here -- the whole demo is
+       pointer-events-none (it is a looping video-style graphic, not a UI). */
+    @keyframes demoPacingPromptFadeRefined {
+      0%, 29% { opacity: 1; transform: translateY(0); }
+      33%, 88% { opacity: 0.15; transform: translateY(-4px); }
+      93%, 100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes demoPacingSynthLoaderRefined {
+      0%, 30% { opacity: 0; transform: scale(0.97); display: none; }
+      32% { opacity: 0; transform: scale(0.97); display: flex; }
+      34%, 46% { opacity: 1; transform: scale(1); display: flex; }
+      49%, 100% { opacity: 0; transform: scale(1.02); display: none; }
+    }
+    @keyframes demoPacingStudioRevealRefined {
+      0%, 46% { opacity: 0; transform: translateY(14px) scale(0.985); }
+      51%, 88% { opacity: 1; transform: translateY(0) scale(1); }
+      93%, 100% { opacity: 0; transform: translateY(8px) scale(0.985); }
+    }
+    @keyframes demoClickRingPulse {
+      0%, 27% { opacity: 0; transform: scale(0.2); }
+      28% { opacity: 1; transform: scale(1); }
+      30% { opacity: 0; transform: scale(1.8); }
+      30.5%, 100% { opacity: 0; }
+    }
+    @keyframes demoBarGrow1 { 0%, 52% { height: 0%; } 58%, 88% { height: 46%; } 92%, 100% { height: 0%; } }
+    @keyframes demoBarGrow2 { 0%, 52% { height: 0%; } 60%, 88% { height: 72%; } 92%, 100% { height: 0%; } }
+    @keyframes demoBarGrow3 { 0%, 52% { height: 0%; } 62%, 88% { height: 90%; } 92%, 100% { height: 0%; } }
+    @keyframes demoBarGrow4 { 0%, 52% { height: 0%; } 64%, 88% { height: 100%; } 92%, 100% { height: 0%; } }
+    .anim-type-deliberate {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #60a5fa;
+      animation: demoPacingTyping 14s steps(48, end) infinite, demoPacingBlink 0.75s step-end infinite;
+    }
+    .anim-cursor-deliberate {
+      left: 26%;
+      top: 68%;
+      transform-origin: top left;
+      animation: demoPacingCursorRefined 14s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    }
+    .anim-btn-deliberate {
+      animation: demoPacingBtnPressRefined 14s ease-in-out infinite;
+    }
+    .anim-prompt-deliberate {
+      animation: demoPacingPromptFadeRefined 14s ease-in-out infinite;
+    }
+    .anim-synth-deliberate {
+      animation: demoPacingSynthLoaderRefined 14s ease-in-out infinite;
+    }
+    .anim-studio-deliberate {
+      animation: demoPacingStudioRevealRefined 14s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    .anim-bar-1 { animation: demoBarGrow1 14s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+    .anim-bar-2 { animation: demoBarGrow2 14s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+    .anim-bar-3 { animation: demoBarGrow3 14s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+    .anim-bar-4 { animation: demoBarGrow4 14s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+    .anim-click-ring { animation: demoClickRingPulse 14s ease-out infinite; }
+
+    /*
+      The demo behaves like a video: it is held on the first frame until the card
+      actually scrolls into view, then plays. Everything in the subtree is paused
+      so decorative spinners/pulses stop too rather than animating off-screen.
+    */
+    [data-purpose="automated-demo-showcase"] * {
+      animation-play-state: paused;
+    }
+    [data-purpose="automated-demo-showcase"].is-visible * {
+      animation-play-state: running;
+    }
+
+    /* Accessibility: show the finished frame as a still image instead of motion. */
+    @media (prefers-reduced-motion: reduce) {
+      [data-purpose="automated-demo-showcase"] * {
+        animation: none !important;
+        animation-play-state: running !important;
+      }
+      [data-purpose="automated-demo-showcase"] .anim-type-deliberate {
+        width: auto;
+        border-right-color: transparent;
+      }
+      [data-purpose="automated-demo-showcase"] .anim-cursor-deliberate,
+      [data-purpose="automated-demo-showcase"] .anim-click-ring {
+        opacity: 0;
+      }
+      [data-purpose="automated-demo-showcase"] .anim-synth-deliberate {
+        display: none;
+      }
+      [data-purpose="automated-demo-showcase"] .anim-bar-1 { height: 46%; }
+      [data-purpose="automated-demo-showcase"] .anim-bar-2 { height: 72%; }
+      [data-purpose="automated-demo-showcase"] .anim-bar-3 { height: 90%; }
+      [data-purpose="automated-demo-showcase"] .anim-bar-4 { height: 100%; }
+    }
+  </style>
+
+  <!-- Window Top Bar -->
+  <div class="flex items-center justify-between px-4 py-2.5 bg-white/[0.03] border-b border-white/[0.07]">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+      <span class="text-[11px] font-mono text-slate-400 ml-2.5 tracking-wide flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        GlowSlides Studio v2.4 • Autonomous Presentation Workspace
+      </span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">AUTONOMOUS AGENT ACTIVE</span>
+    </div>
+  </div>
+
+  <!-- Window Content Stage -->
+  <div class="p-4 sm:p-5 relative min-h-[360px] flex flex-col justify-between overflow-hidden">
+    <!-- Step 1: Prompt Input Bar -->
+    <div class="anim-prompt-deliberate transition-all relative z-20 mb-3">
+      <div class="text-[11px] font-mono text-slate-400 mb-1.5 flex items-center justify-between">
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> PROMPT GENERATOR</span>
+        <span class="text-blue-400 font-semibold">Model: DeckSynth-Titan v3</span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-2.5 bg-[#02050e] border border-blue-500/30 rounded-xl p-2 shadow-[inset_0_2px_10px_rgba(0,0,0,0.7)] relative overflow-hidden">
+        <div class="hidden sm:flex w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-400/20 items-center justify-center shrink-0 text-blue-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div class="flex-1 overflow-hidden relative text-xs sm:text-sm text-slate-200 font-medium py-1">
+          <div class="anim-type-deliberate pr-1 inline-block text-slate-100 font-mono tracking-tight">
+            Create 12-slide Board Deck: Q3 ARR Growth, Enterprise AI Engine roadmap, and Gross Margin expansion
+          </div>
+        </div>
+        <div class="relative shrink-0 flex items-center justify-center">
+          <!-- Non-interactive: this is a simulated screen recording, not a real control -->
+          <span class="anim-btn-deliberate px-3 sm:px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-xs tracking-wide shadow-[0_0_16px_rgba(59,130,246,0.6)] flex items-center gap-1.5 relative z-10 whitespace-nowrap">
+            <span class="">Build Deck</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </span>
+          <!-- Click Wave Burst Indicator -->
+          <div class="anim-click-ring absolute w-12 h-12 rounded-full border-2 border-sky-300 pointer-events-none z-20"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated system-style mouse pointer (decorative, non-interactive) -->
+    <div class="anim-cursor-deliberate absolute z-40 pointer-events-none" aria-hidden="true">
+      <svg class="w-5 h-5 drop-shadow-[0_2px_5px_rgba(0,0,0,0.55)]" viewBox="0 0 24 24">
+        <!-- Classic OS arrow cursor: white body, dark outline, pointed top-left hotspot -->
+        <path d="M4.5 2.2 L4.5 19.4 L8.6 15.3 L11.3 21.4 L13.8 20.3 L11.1 14.3 L16.9 14.3 Z"
+              fill="#ffffff" stroke="#0b1220" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <!-- Step 2: Synthesis State Overlay -->
+    <div class="anim-synth-deliberate absolute inset-x-4 top-20 bottom-4 z-30 flex-col items-center justify-center bg-[#030816]/95 rounded-xl border border-blue-400/40 backdrop-blur-xl shadow-[0_0_40px_rgba(37,99,235,0.3)]">
+      <div class="relative flex items-center justify-center mb-4">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-400/20 border-t-blue-400 animate-spin"></div>
+        <div class="w-5 h-5 rounded-full bg-blue-500 shadow-[0_0_16px_#3b82f6] absolute animate-pulse"></div>
+      </div>
+      <span class="text-sm font-semibold text-blue-100 tracking-wide">Synthesizing 12 Boardroom-Ready Slides...</span>
+      <span class="text-[11px] font-mono text-blue-300/80 mt-1.5 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        Calibrating financial metrics • Enforcing company brand kit • Generating charts
+      </span>
+    </div>
+
+    <!-- Step 3: Complete Presentation Studio View -->
+    <div class="anim-studio-deliberate relative z-10 w-full bg-[#070e24] border border-blue-300/30 rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] flex flex-col">
+      <!-- Studio Toolbar Header -->
+      <div class="px-3 sm:px-4 py-2 bg-black/40 border-b border-white/[0.08] flex items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <span class="font-semibold text-white tracking-tight flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"></path>
+            </svg>
+            Q3 Executive Deck
+          </span>
+          <span class="hidden sm:flex text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 items-center gap-1 shrink-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 12 Slides Built
+          </span>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="hidden sm:flex px-2.5 py-1 rounded bg-white/[0.05] text-[11px] font-medium text-slate-300 border border-white/[0.08] items-center gap-1">
+            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+            Share
+          </span>
+          <span class="hidden md:flex px-2.5 py-1 rounded bg-white/[0.05] text-[11px] font-medium text-slate-300 border border-white/[0.08] items-center gap-1">
+            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Export PPTX
+          </span>
+          <span class="px-3 py-1 rounded bg-blue-600 text-[11px] font-semibold text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] flex items-center gap-1">
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+            Present
+          </span>
+        </div>
+      </div>
+
+      <!-- Studio Dual Pane: Filmstrip Thumbnails + Active Slide Canvas -->
+      <div class="grid grid-cols-12 min-h-[220px]">
+        <!-- Left Slide Filmstrip Sidebar (hidden on phones -- the canvas needs the room) -->
+        <div class="hidden sm:flex col-span-3 border-r border-white/[0.08] bg-black/30 p-2.5 flex-col gap-2">
+          <div class="text-[9px] font-mono tracking-wider uppercase text-slate-400 px-1 mb-0.5">Slide Deck Outline</div>
+          <!-- Filmstrip Item 1 (Active) -->
+          <div class="p-1.5 rounded-lg bg-blue-600/20 border border-blue-400/40 relative">
+            <div class="flex items-center justify-between text-[9px] font-mono text-blue-300 mb-1">
+              <span class="font-bold">01 Overview</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+            </div>
+            <div class="h-8 rounded bg-[#0a1329] border border-blue-500/20 p-1 flex flex-col justify-between">
+              <div class="w-3/4 h-1 bg-blue-400/50 rounded-full"></div>
+              <div class="w-1/2 h-1 bg-white/20 rounded-full"></div>
+            </div>
+          </div>
+          <!-- Filmstrip Item 2 -->
+          <div class="p-1.5 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+            <div class="flex items-center justify-between text-[9px] font-mono text-slate-400 mb-1">
+              <span class="">02 ARR Growth</span>
+            </div>
+            <div class="h-8 rounded bg-[#0a1329] border border-white/[0.05] p-1 flex items-end gap-1">
+              <div class="w-1/4 h-2 bg-blue-500/30 rounded-xs"></div>
+              <div class="w-1/4 h-4 bg-blue-500/50 rounded-xs"></div>
+              <div class="w-1/4 h-6 bg-blue-400 rounded-xs"></div>
+            </div>
+          </div>
+          <!-- Filmstrip Item 3 -->
+          <div class="p-1.5 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+            <div class="flex items-center justify-between text-[9px] font-mono text-slate-400 mb-1">
+              <span class="">03 AI Roadmap</span>
+            </div>
+            <div class="h-8 rounded bg-[#0a1329] border border-white/[0.05] p-1 flex flex-col justify-center gap-1">
+              <div class="w-full h-1 bg-blue-400/30 rounded-full"></div>
+              <div class="w-2/3 h-1 bg-emerald-400/30 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Active Slide Preview Area -->
+        <div class="col-span-12 sm:col-span-9 p-3 sm:p-4 bg-gradient-to-br from-[#0c1530] via-[#080f22] to-[#040814] flex flex-col justify-between">
+          <!-- Slide Header Bar -->
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[9px] font-mono uppercase font-bold border border-blue-400/30">Slide 01 of 12</span>
+              <h4 class="text-xs sm:text-sm font-bold text-white tracking-tight">Quarterly Performance &amp; Autonomous AI Expansion</h4>
+            </div>
+            <span class="text-[9px] font-mono text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> Board Ready
+            </span>
+          </div>
+
+          <!-- Key Metric Highlights -->
+          <div class="grid grid-cols-3 gap-2 mb-2">
+            <div class="p-2 rounded-lg bg-white/[0.03] border border-white/[0.07]">
+              <div class="text-[9px] text-slate-400 font-medium">Annual Run Rate</div>
+              <div class="text-sm sm:text-base font-bold text-white tracking-tight flex items-baseline gap-1 mt-0.5">
+                $24.8M
+                <span class="text-[9px] font-semibold text-emerald-400">+118%</span>
+              </div>
+            </div>
+            <div class="p-2 rounded-lg bg-white/[0.03] border border-white/[0.07]">
+              <div class="text-[9px] text-slate-400 font-medium">Net Retention Rate</div>
+              <div class="text-sm sm:text-base font-bold text-white tracking-tight flex items-baseline gap-1 mt-0.5">
+                134%
+                <span class="text-[9px] font-semibold text-blue-400">Top Decile</span>
+              </div>
+            </div>
+            <div class="p-2 rounded-lg bg-white/[0.03] border border-white/[0.07]">
+              <div class="text-[9px] text-slate-400 font-medium">Autonomous Decks</div>
+              <div class="text-sm sm:text-base font-bold text-white tracking-tight flex items-baseline gap-1 mt-0.5">
+                42,800
+                <span class="text-[9px] font-semibold text-emerald-400">+3.8x</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Data Trajectory & Processing Telemetry -->
+          <div class="flex items-center justify-between gap-3 bg-black/40 rounded-lg p-2.5 border border-white/[0.05]">
+            <div class="flex-1 flex items-end gap-2 h-10 px-1">
+              <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div class="w-full bg-blue-600/40 rounded-xs anim-bar-1"></div>
+                <span class="text-[8px] font-mono text-slate-400">Q1</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div class="w-full bg-blue-500/60 rounded-xs anim-bar-2"></div>
+                <span class="text-[8px] font-mono text-slate-400">Q2</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div class="w-full bg-blue-400/80 rounded-xs anim-bar-3"></div>
+                <span class="text-[8px] font-mono text-slate-400">Q3</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div class="w-full bg-gradient-to-t from-blue-500 to-sky-300 rounded-xs anim-bar-4 shadow-[0_0_8px_rgba(96,165,250,0.5)]"></div>
+                <span class="text-[8px] font-mono text-blue-300 font-bold">Q4(P)</span>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[9px] font-mono text-blue-300 uppercase tracking-wider">SYNTHESIS SPEED</div>
+              <div class="text-xs font-bold text-white flex items-center justify-end gap-1 mt-0.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                0.18s per slide
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="mt-20 pt-10 border-t border-white/[0.06] text-center" data-purpose="trusted-companies-strip">
+<p class="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-8">
+        Crafting presentations for leaders at forward-thinking enterprises
+      </p>
+<div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
+<span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+<span class="w-3 h-3 bg-blue-500 rounded-sm"></span> VORTEX LABS
+        </span>
+<span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full border-2 border-indigo-400"></span> HYPERSCALE
+        </span>
+<span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+<span class="text-blue-400">▲</span> APEX SYSTEMS
+        </span>
+<span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+<span class="w-3.5 h-1.5 bg-sky-400 rounded-xs"></span> STRATA CORP
+        </span>
+<span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rotate-45 bg-blue-400"></span> NEXUS AI
+        </span>
+</div>
+</div>
+<!-- END: Client / Brand Trust Bar -->
+</main>
+<!-- END: HeroSection -->
+<!-- BEGIN: Interactive Feature Highlights Section -->
+<section class="relative z-10 border-t border-white/[0.08] bg-black/40 py-24" data-purpose="features-overview" id="engine">
+<div class="max-w-[1440px] mx-auto px-6">
+<div class="max-w-2xl mb-16">
+<div class="text-xs font-semibold tracking-wider uppercase text-blue-400 mb-2">INTELLIGENT SLIDE COMPOSITION</div>
+<h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Everything a world-class deck needs, assembled in seconds</h2>
+<p class="text-slate-400 mt-3 text-base">From keynote transitions to high-stakes board visuals, our autonomous canvas structures your argument with precision.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.07] hover:border-blue-500/40 transition-all group relative overflow-hidden">
+<div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-xl font-semibold text-white mb-2">Contextual Storyboarding</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Simply feed your prompt, rough notes, or CSV. GlowSlides automatically extracts key storylines and organizes them into high-converting slide sequences.</p>
+</div>
+<!-- Feature 2 -->
+<div class="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.07] hover:border-blue-500/40 transition-all group relative overflow-hidden">
+<div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-xl font-semibold text-white mb-2">Automated Data Visualizer</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Turn intricate quarterly metrics into responsive charts, isometric diagrams, and clean comparison tables calibrated to your company design system.</p>
+</div>
+<!-- Feature 3 -->
+<div class="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.07] hover:border-blue-500/40 transition-all group relative overflow-hidden">
+<div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-xl font-semibold text-white mb-2">Enterprise-Grade Governance</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Full SOC-2 Type II compliant workflows. Lock brand fonts, enforce color palettes, and ensure pitch decks never leak confidential trade secrets.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Interactive Feature Highlights Section -->
+<!-- BEGIN: CanonicalSiteFooter -->
+<footer class="relative z-10 border-t border-white/[0.08] bg-black/60 py-10" data-purpose="site-footer">
+  <div class="max-w-[1440px] mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <a class="flex items-center gap-2.5 min-h-[44px]" href="/">
+        <img alt="GlowSlides logo" class="w-7 h-7 rounded-lg object-cover" src="/images/logo.png" width="28" height="28" onerror="this.remove()">
+        <span class="text-sm font-bold text-white">GlowSlides</span>
+      </a>
+      <span class="text-xs text-slate-400">GlowSlides Inc. © 2026. All rights reserved.</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-400" data-purpose="footer-menu">
+      <a class="hover:text-white transition-colors" href="/dashboard">Dashboard</a>
+      <a class="hover:text-white transition-colors" href="/templates">Templates</a>
+      <a class="hover:text-white transition-colors" href="/engine">AI Engine</a>
+      <a class="hover:text-white transition-colors" href="/integrations">Integrations</a>
+      <a class="hover:text-white transition-colors" href="/enterprise">Enterprise</a>
+      <a class="hover:text-white transition-colors" href="/pricing">Pricing</a>
+      <a class="hover:text-white transition-colors" href="/security">Security</a>
+      <a class="hover:text-white transition-colors" href="/status">System Status</a>
+      <a class="hover:text-white transition-colors" href="/privacy">Privacy Policy</a>
+      <a class="hover:text-white transition-colors" href="/terms">Terms of Service</a>
+      <a class="hover:text-white transition-colors" href="/settings">Settings</a>
+    </nav>
+
+    <div class="flex items-center gap-3 text-[11px] font-mono text-slate-500">
+      <span class="px-2 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">SOC 2 TYPE II</span>
+      <a href="/status" class="px-2.5 min-h-[44px] rounded bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center gap-1.5 hover:bg-emerald-500/20 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        ALL SYSTEMS OPERATIONAL
+      </a>
+    </div>
+  </div>
+</footer>
+<!-- END: CanonicalSiteFooter -->
+
+<script>
+  /*
+    Play the landing demo only once the user has actually scrolled it into view.
+    Treated like a video: held on its first frame, played while on screen, paused
+    again when scrolled away.
+
+    A plain visibility ratio is not enough: part of the card already sits above
+    the fold on a tall desktop window, so a 30% ratio would start it on page load
+    without the user scrolling. A single high ratio fails the other way on a short
+    phone viewport, where the card is taller than the screen and the ratio can
+    never reach it. So the card is armed based on where its top edge actually is:
+    it must be brought up above 75% of the viewport height before it plays.
+
+    Several thresholds are supplied deliberately. IntersectionObserver only
+    reports on threshold crossings, and a lone 0 would stay silent while the card
+    goes from partly visible to fully visible, which is exactly the transition
+    this needs to catch.
+  */
+  (function () {
+    var demo = document.querySelector('[data-purpose="automated-demo-showcase"]');
+    if (!demo) return;
+
+    // Reduced-motion users get the static finished frame (handled in CSS).
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if (!('IntersectionObserver' in window)) {
+      demo.classList.add('is-visible');
+      return;
+    }
+
+    function evaluate(entry) {
+      var top = entry.boundingClientRect.top;
+      var bottom = entry.boundingClientRect.bottom;
+      var armed = entry.isIntersecting && top < window.innerHeight * 0.75 && bottom > 0;
+      demo.classList.toggle('is-visible', armed);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) evaluate(entries[i]);
+    }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
+
+    io.observe(demo);
+  })();
+</script>
+  <script src="/js/cookie-consent.js"></script>
+</body></html>
